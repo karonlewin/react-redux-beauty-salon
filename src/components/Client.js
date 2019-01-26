@@ -4,7 +4,9 @@ class Client extends React.Component {
   render (){
     return (
       <div>
-        {this.props.client.name}
+        <b>
+          {this.props.client}
+        </b>
       </div>
     )
   }

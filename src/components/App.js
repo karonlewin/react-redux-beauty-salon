@@ -1,27 +1,34 @@
 import React, { Component } from 'react';
 import ServiceList from './ServiceList'
 import ClientList from './ClientList';
+import AddClient from './AddClient';
 import '../css/App.css';
 
 class App extends Component {
   state = {
-    clients: [
-      {name: 'Rose'},
-      {name: 'John'},
-      {name: 'Maria'}
+    clientServices: [
+      {id: 1, client: 'Rose', services: [{id: 1, name: 'Hair Wash', price: 5}, {id: 3, name: 'Hair Cut', price: 40}, {id: 2, name: 'Manicure', price: 20}]},
+      {id: 2, client: 'John', services: [{id: 3, name: 'Hair Cut', price: 40}]},
+      {id: 3, client: 'Maria', services: [{id: 3, name: 'Hair Cut', price: 40}, {id: 2, name: 'Manicure', price: 20}]},
+      {id: 4, client: 'Victor', services: []}
     ],
     services: [
-      {name: 'Hair Wash', price: 5},
-      {name: 'Manicure', price: 20},
-      {name: 'Hair Cut', price: 40},
-      {name: 'Hair Hydratation', price: 60}
+      {id: 1, name: 'Hair Wash', price: 5},
+      {id: 2, name: 'Manicure', price: 20},
+      {id: 3, name: 'Hair Cut', price: 40},
+      {id: 4, name: 'Hair Hydratation', price: 60}
     ]
   }
   render() {
     return (
-      <div className="App">
-        <ClientList clients={this.state.clients}/>
-        <ServiceList services={this.state.services}/>
+      <div className="columns">
+        <div className="column">
+          <AddClient/>
+          <ClientList clientServices={this.state.clientServices} />
+        </div>
+        <div className="column">
+          <ServiceList services={this.state.services} />
+        </div>
       </div>
     );
   }

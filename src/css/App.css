@@ -30,3 +30,8 @@
     transform: rotate(360deg);
   }
 }
+
+.client-service {
+  background-color: lightgray;
+  margin: 5px;
+}

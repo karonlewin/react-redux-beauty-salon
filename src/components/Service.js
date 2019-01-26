@@ -4,7 +4,7 @@ class Service extends React.Component {
   render (){
     return (
       <div>
-        {this.props.service.name}
+        {this.props.service.name} | ${this.props.service.price}
       </div>
     )
   }

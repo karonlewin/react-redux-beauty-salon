@@ -7,7 +7,7 @@ class ServiceList extends React.Component {
       <div>
         <b>Services:</b>
         {this.props.services.map((service, index) => (
-          <Service service={service}/>
+          <Service service={service} key={service.id}/>
         ))}
       </div>
     )
