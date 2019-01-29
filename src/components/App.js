@@ -6,29 +6,59 @@ import '../css/App.css';
 
 class App extends Component {
   state = {
-    clientServices: [
-      {id: 1, client: 'Rose', services: [{id: 1, name: 'Hair Wash', price: 5}, {id: 3, name: 'Hair Cut', price: 40}, {id: 2, name: 'Manicure', price: 20}]},
-      {id: 2, client: 'John', services: [{id: 3, name: 'Hair Cut', price: 40}]},
-      {id: 3, client: 'Maria', services: [{id: 3, name: 'Hair Cut', price: 40}, {id: 2, name: 'Manicure', price: 20}]},
-      {id: 4, client: 'Victor', services: []}
+    clients: [
+      {name: 'Rose', services: []},
+      {name: 'John', services: []},
+      {name: 'Maria', services: []}
     ],
     services: [
-      {id: 1, name: 'Hair Wash', price: 5},
-      {id: 2, name: 'Manicure', price: 20},
-      {id: 3, name: 'Hair Cut', price: 40},
-      {id: 4, name: 'Hair Hydratation', price: 60}
-    ]
+      {name: 'Hair Wash', price: 5},
+      {name: 'Manicure', price: 20},
+      {name: 'Hair Cut', price: 40},
+      {name: 'Hair Hydratation', price: 60}
+    ],
+    draggedService: {}
   }
+
+  onDragService = (event, service) => {
+    event.preventDefault();
+    this.setState({
+      draggedService: service
+    });
+  }
+
+  onDragOver = (event) => {
+    event.preventDefault();
+  }
+
+  onDropService = (event, clientTarget) => {
+    const { clients, draggedService } = this.state;
+    const filteredClients = clients.filter(client => client.name != clientTarget.name)
+    this.setState({
+      clients: [...filteredClients, {...clientTarget, services: [...clientTarget.services, draggedService]}],
+      draggedService: {},
+    });
+  }
+
   render() {
+
+    function sortClients(a, b) {
+      const nameA = a.name.toUpperCase();
+      const nameB = b.name.toUpperCase();
+
+      let comparison = 0;
+      if (nameA > nameB) {
+        comparison = 1;
+      } else if (nameA < nameB) {
+        comparison = -1;
+      }
+      return comparison;
+    }
+
     return (
-      <div className="columns">
-        <div className="column">
-          <AddClient/>
-          <ClientList clientServices={this.state.clientServices} />
-        </div>
-        <div className="column">
-          <ServiceList services={this.state.services} />
-        </div>
+      <div className="App">
+        <ClientList clients={this.state.clients.sort(sortClients)} onDragOver={this.onDragOver} onDropService={this.onDropService}/>
+        <ServiceList services={this.state.services} onDragService={this.onDragService}/>
       </div>
     );
   }

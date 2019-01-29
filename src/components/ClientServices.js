@@ -1,19 +1,17 @@
 import React from 'react';
 import Client from './Client';
 import Service from './Service';
-import ClientTotal from './ClientTotal';
 
 class ClientServices extends React.Component {
   render (){
     return (
-      <div className="client-service">
-        <Client client={this.props.client}/>
-        {this.props.services.map((service, index) => (
-          <Service service={service} key={service.id}/>
+      <div className="clientService">
+        <Client client={this.props.client} onDragOver={this.props.onDragOver} onDropService={this.props.onDropService}/>
+        {this.props.client.services.map((service, index) => (
+          <Service service={service}/>
         ))}
-        <ClientTotal services={this.props.services}/>
+        ${this.props.client.services.reduce((total, service) => total + service.price, 0)}
       </div>
-
     )
   }
 }

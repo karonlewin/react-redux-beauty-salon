@@ -6,8 +6,8 @@ class ClientList extends React.Component {
     return (
       <div>
         <b>Clients:</b>
-        {this.props.clientServices.map((clientService, index) => (
-          <ClientServices client={clientService.client} services={clientService.services} key={clientService.id}/>
+        {this.props.clients.map((client, index) => (
+          <ClientServices client={client} onDragOver={this.props.onDragOver} onDropService={this.props.onDropService}/>
         ))}
       </div>
     )
