@@ -1,6 +1,7 @@
 import React from 'react';
 import Client from './Client';
 import Service from './Service';
+import ClientTotal from './ClientTotal'
 
 class ClientServices extends React.Component {
   render (){
@@ -10,7 +11,7 @@ class ClientServices extends React.Component {
         {this.props.client.services.map((service, index) => (
           <Service service={service}/>
         ))}
-        ${this.props.client.services.reduce((total, service) => total + service.price, 0)}
+        <ClientTotal services={this.props.client.services}/>
       </div>
     )
   }
