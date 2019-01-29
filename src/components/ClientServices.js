@@ -9,7 +9,7 @@ class ClientServices extends React.Component {
       <div className="clientService">
         <Client client={this.props.client} onDragOver={this.props.onDragOver} onDropService={this.props.onDropService}/>
         {this.props.client.services.map((service, index) => (
-          <Service service={service}/>
+          <Service service={service} onDragService={(event) => event.preventDefault()}/>
         ))}
         <ClientTotal services={this.props.client.services}/>
       </div>

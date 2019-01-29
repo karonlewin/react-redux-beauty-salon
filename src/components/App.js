@@ -20,6 +20,14 @@ class App extends Component {
     draggedService: {}
   }
 
+  isEmpty = obj => {
+    for(var key in obj) {
+        if(obj.hasOwnProperty(key))
+            return false;
+    }
+    return true;
+  }
+
   onDragService = (event, service) => {
     event.preventDefault();
     this.setState({
@@ -33,6 +41,12 @@ class App extends Component {
 
   onDropService = (event, clientTarget) => {
     const { clients, draggedService } = this.state;
+
+    // Preventing dragging services from other customers
+    if (this.isEmpty(draggedService)){
+      return;
+    }
+
     const filteredClients = clients.filter(client => client.name != clientTarget.name)
     this.setState({
       clients: [...filteredClients, {...clientTarget, services: [...clientTarget.services, draggedService]}],
