@@ -17,7 +17,8 @@ class App extends Component {
       {name: 'Hair Cut', price: 40},
       {name: 'Hair Hydratation', price: 60}
     ],
-    draggedService: {}
+    draggedService: {},
+    clientInput: ''
   }
 
   isEmpty = obj => {
@@ -54,6 +55,20 @@ class App extends Component {
     });
   }
 
+  addClient = (name) => {
+    const { clients } = this.state;
+    this.setState({
+      clients: [...clients, {name: name, services: []}],
+      clientInput: ''
+    })
+  }
+
+  updateClientInput = (text) => {
+    this.setState({
+      clientInput: text
+    })
+  }
+
   render() {
 
     function sortClients(a, b) {
@@ -71,6 +86,7 @@ class App extends Component {
 
     return (
       <div className="App">
+        <AddClient addClient={this.addClient} clientInput={this.state.clientInput} updateClientInput={this.updateClientInput}/>
         <ClientList clients={this.state.clients.sort(sortClients)} onDragOver={this.onDragOver} onDropService={this.onDropService}/>
         <ServiceList services={this.state.services} onDragService={this.onDragService}/>
       </div>
