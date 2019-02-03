@@ -7,9 +7,9 @@ import '../css/App.css';
 class App extends Component {
   state = {
     clients: [
-      {name: 'Rose', services: []},
-      {name: 'John', services: []},
-      {name: 'Maria', services: []}
+      {name: 'Rose', services: [], registered_at: new Date()},
+      {name: 'John', services: [], registered_at: new Date()},
+      {name: 'Maria', services: [], registered_at: new Date()}
     ],
     services: [
       {name: 'Hair Wash', price: 5},
@@ -48,7 +48,7 @@ class App extends Component {
       return;
     }
 
-    const filteredClients = clients.filter(client => client.name != clientTarget.name)
+    const filteredClients = clients.filter(client => client.name !== clientTarget.name)
     this.setState({
       clients: [...filteredClients, {...clientTarget, services: [...clientTarget.services, draggedService]}],
       draggedService: {},
@@ -58,7 +58,7 @@ class App extends Component {
   addClient = (name) => {
     const { clients } = this.state;
     this.setState({
-      clients: [...clients, {name: name, services: []}],
+      clients: [...clients, {name: name, services: [], registered_at: new Date()}],
       clientInput: ''
     })
   }
@@ -85,7 +85,7 @@ class App extends Component {
     }
 
     return (
-      <div className="App">
+      <div className="container is-fluid">
         <AddClient addClient={this.addClient} clientInput={this.state.clientInput} updateClientInput={this.updateClientInput}/>
         <ClientList clients={this.state.clients.sort(sortClients)} onDragOver={this.onDragOver} onDropService={this.onDropService}/>
         <ServiceList services={this.state.services} onDragService={this.onDragService}/>
