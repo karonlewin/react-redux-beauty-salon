@@ -19,14 +19,26 @@ class AddClient extends React.Component {
 
   render (){
     return (
-      <div>
-        <input type="text" name="client-name" value={this.props.clientInput} onChange={this.handleChange} ref={this.inputRef}/>
-        <button className="button is-info" onClick={this.addClient}>
-          <span className="icon is-small">
-            <i className="fas fa-plus-square"></i>
-          </span>
-          <span>New Client</span>
-        </button>
+      <div class="tile is-ancestor add-client">
+        <div class="tile is-vertical">
+          <div class="tile">
+            <div class="tile is-parent is-vertical">
+              <article class="tile is-child notification is-light is-bold">
+                <div class="field">
+                  <div class="control">
+                    <input className="input is-danger" type="text" name="client-name" placeholder="Enter client's name" value={this.props.clientInput} onChange={this.handleChange} ref={this.inputRef}/>
+                  </div>
+                </div>
+                <button className="button is-danger" onClick={this.addClient}>
+                  <span className="icon is-small">
+                    <i className="fas fa-heart"></i>
+                  </span>
+                  <span>Hello beauty!</span>
+                </button>
+              </article>
+            </div>
+          </div>
+        </div>
       </div>
     )
   }
