@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 
 class AddClient extends React.Component {
   inputRef = React.createRef();
@@ -44,4 +45,8 @@ class AddClient extends React.Component {
   }
 }
 
-export default AddClient;
+const mapStateToProps = state => ({
+  clientInput: state.clientInput
+});
+
+export default connect(mapStateToProps)(AddClient);

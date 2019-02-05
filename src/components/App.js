@@ -2,39 +2,51 @@ import React, { Component } from 'react';
 import ServicesList from './ServicesList'
 import ClientList from './ClientList';
 import AddClient from './AddClient';
+import { createStore } from 'redux';
+import { Provider } from 'react-redux';
 import '../css/App.css';
 
-class App extends Component {
-  state = {
-    clients: [
-      {name: 'Rose', services: [], registered_at: new Date()},
-      {name: 'John', services: [], registered_at: new Date()},
-      {name: 'Valerie', services: [], registered_at: new Date()},
-      {name: 'Humbert', services: [], registered_at: new Date()},
-      {name: 'Michael Jackson', services: [], registered_at: new Date()},
-      {name: 'Lady Gaga', services: [], registered_at: new Date()},
-      {name: 'Tim Burton', services: [], registered_at: new Date()},
-      {name: 'John Travolta', services: [], registered_at: new Date()},
-      {name: 'Rose Titanic', services: [], registered_at: new Date()},
-      {name: 'Maradonna', services: [], registered_at: new Date()},
-      {name: 'Neymar', services: [], registered_at: new Date()},
-      {name: 'Maria', services: [], registered_at: new Date()}
-    ],
-    services: [
-      {name: 'Basic Facial', price: 55},
-      {name: 'Deluxe Facial', price: 75},
-      {name: 'Acne Treatment', price: 95},
-      {name: 'Milk Peel', price: 330},
-      {name: 'Men Hair Cut', price: 26},
-      {name: 'Women Hair Cut', price: 35},
-      {name: 'Children Hair Cut', price: 20},
-      {name: 'Permanent Color', price: 68},
-      {name: 'Scalp Treatment', price: 35}
-    ],
-    draggedService: {},
-    clientInput: ''
-  }
+const initialState = {
+  clients: [
+    {name: 'Rose', services: [], registered_at: new Date()},
+    {name: 'John', services: [], registered_at: new Date()},
+    {name: 'Valerie', services: [], registered_at: new Date()},
+    {name: 'Humbert', services: [], registered_at: new Date()},
+    {name: 'Michael Jackson', services: [], registered_at: new Date()},
+    {name: 'Lady Gaga', services: [], registered_at: new Date()},
+    {name: 'Tim Burton', services: [], registered_at: new Date()},
+    {name: 'John Travolta', services: [], registered_at: new Date()},
+    {name: 'Rose Titanic', services: [], registered_at: new Date()},
+    {name: 'Maradonna', services: [], registered_at: new Date()},
+    {name: 'Neymar', services: [], registered_at: new Date()},
+    {name: 'Maria', services: [], registered_at: new Date()}
+  ],
+  services: [
+    {name: 'Basic Facial', price: 55},
+    {name: 'Deluxe Facial', price: 75},
+    {name: 'Acne Treatment', price: 95},
+    {name: 'Milk Peel', price: 330},
+    {name: 'Men Hair Cut', price: 26},
+    {name: 'Women Hair Cut', price: 35},
+    {name: 'Children Hair Cut', price: 20},
+    {name: 'Permanent Color', price: 68},
+    {name: 'Scalp Treatment', price: 35}
+  ],
+  draggedService: {},
+  clientInput: ''
+};
 
+function reducer(state = initialState, action){
+  switch (action.type) {
+    case "BLABLABLA":
+      return {};
+  }
+  return state;
+}
+
+const store = createStore(reducer);
+
+class App extends Component {
   isEmpty = obj => {
     for(var key in obj) {
         if(obj.hasOwnProperty(key))
@@ -85,18 +97,18 @@ class App extends Component {
 
   render() {
 
-    function sortClients(a, b) {
-      const nameA = a.name.toUpperCase();
-      const nameB = b.name.toUpperCase();
-
-      let comparison = 0;
-      if (nameA > nameB) {
-        comparison = 1;
-      } else if (nameA < nameB) {
-        comparison = -1;
-      }
-      return comparison;
-    }
+    // function sortClients(a, b) {
+    //   const nameA = a.name.toUpperCase();
+    //   const nameB = b.name.toUpperCase();
+    //
+    //   let comparison = 0;
+    //   if (nameA > nameB) {
+    //     comparison = 1;
+    //   } else if (nameA < nameB) {
+    //     comparison = -1;
+    //   }
+    //   return comparison;
+    // }
 
     return (
       <div className="container is-fluid">
@@ -115,9 +127,11 @@ class App extends Component {
           </div>
         </section>
         <div className="app-container">
-          <AddClient addClient={this.addClient} clientInput={this.state.clientInput} updateClientInput={this.updateClientInput}/>
-          <ClientList clients={this.state.clients.sort(sortClients)} onDragOver={this.onDragOver} onDropService={this.onDropService}/>
-          <ServicesList services={this.state.services} onDragService={this.onDragService}/>
+          <Provider store={store}>
+            <AddClient addClient={this.addClient} updateClientInput={this.updateClientInput}/>
+            <ClientList onDragOver={this.onDragOver} onDropService={this.onDropService}/>
+            <ServicesList onDragService={this.onDragService}/>
+          </Provider>
         </div>
       </div>
     );

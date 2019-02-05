@@ -1,5 +1,6 @@
 import React from 'react';
 import Service from './Service'
+import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
   render (){
@@ -32,4 +33,8 @@ class ServicesList extends React.Component {
   }
 }
 
-export default ServicesList;
+const mapStateToProps = state => ({
+  services: state.services
+});
+
+export default connect(mapStateToProps)(ServicesList);
