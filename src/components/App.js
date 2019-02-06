@@ -10,15 +10,15 @@ const initialState = {
   clients: [
     {name: 'Rose', services: [], registered_at: new Date()},
     {name: 'John', services: [], registered_at: new Date()},
-    {name: 'Valerie', services: [], registered_at: new Date()},
-    {name: 'Humbert', services: [], registered_at: new Date()},
-    {name: 'Michael Jackson', services: [], registered_at: new Date()},
-    {name: 'Lady Gaga', services: [], registered_at: new Date()},
-    {name: 'Tim Burton', services: [], registered_at: new Date()},
-    {name: 'John Travolta', services: [], registered_at: new Date()},
-    {name: 'Rose Titanic', services: [], registered_at: new Date()},
-    {name: 'Maradonna', services: [], registered_at: new Date()},
-    {name: 'Neymar', services: [], registered_at: new Date()},
+    // {name: 'Valerie', services: [], registered_at: new Date()},
+    // {name: 'Humbert', services: [], registered_at: new Date()},
+    // {name: 'Michael Jackson', services: [], registered_at: new Date()},
+    // {name: 'Lady Gaga', services: [], registered_at: new Date()},
+    // {name: 'Tim Burton', services: [], registered_at: new Date()},
+    // {name: 'John Travolta', services: [], registered_at: new Date()},
+    // {name: 'Rose Titanic', services: [], registered_at: new Date()},
+    // {name: 'Maradonna', services: [], registered_at: new Date()},
+    // {name: 'Neymar', services: [], registered_at: new Date()},
     {name: 'Maria', services: [], registered_at: new Date()}
   ],
   services: [
@@ -37,9 +37,14 @@ const initialState = {
 };
 
 function reducer(state = initialState, action){
+  console.log(action);
   switch (action.type) {
-    case "BLABLABLA":
-      return {};
+    case "ADD_CLIENT":
+      return {...state,
+              clients: state.clients.concat({name: action.client,
+                                             services: [],
+                                             registered_at: new Date()})
+             };
   }
   return state;
 }
@@ -79,20 +84,6 @@ class App extends Component {
       clients: [...filteredClients, {...clientTarget, services: [...clientTarget.services, draggedService]}],
       draggedService: {},
     });
-  }
-
-  addClient = (name) => {
-    const { clients } = this.state;
-    this.setState({
-      clients: [...clients, {name: name, services: [], registered_at: new Date()}],
-      clientInput: ''
-    })
-  }
-
-  updateClientInput = (text) => {
-    this.setState({
-      clientInput: text
-    })
   }
 
   render() {
