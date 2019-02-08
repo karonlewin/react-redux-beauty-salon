@@ -2,11 +2,16 @@ import React from 'react';
 import Client from './Client';
 import Service from './Service';
 import ClientTotal from './ClientTotal'
+import { connect } from 'react-redux';
 
 class ClientServices extends React.Component {
+  onDropService = (event, clientTarget) => {
+    this.props.dispatch({type: 'DROP_SERVICE', service: this.props.draggedService, clientTarget: clientTarget})
+  }
+
   render (){
     return (
-      <div className="box" onDrop={event => this.props.onDropService(event, this.props.client)} onDragOver={event => this.props.onDragOver(event)}>
+      <div className="box" onDrop={event => this.onDropService(event, this.props.client)} onDragOver={event => event.preventDefault()}>
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
@@ -50,4 +55,9 @@ class ClientServices extends React.Component {
   }
 }
 
-export default ClientServices;
+const mapStateToProps = state => ({
+  clients: state.clients,
+  draggedService: state.draggedService
+});
+
+export default connect(mapStateToProps)(ClientServices);

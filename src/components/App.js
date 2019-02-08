@@ -41,11 +41,18 @@ function reducer(state = initialState, action){
   switch (action.type) {
     case "ADD_CLIENT":
       return {...state,
-              clients: state.clients.concat({name: action.client,
-                                             services: [],
-                                             registered_at: new Date()})
-             };
-  }
+          clients: state.clients.concat({name: action.client,
+                                         services: [],
+                                         registered_at: new Date()})};
+
+    case "DRAG_SERVICE":
+      return {...state, draggedService: action.service};
+    case "DROP_SERVICE":
+      const filteredClients = state.clients.filter(client => client.name !== action.clientTarget.name)
+      return {...state,
+              clients: [...filteredClients, {...action.clientTarget, services: [...action.clientTarget.services, action.service]}],
+              draggedService: {}};
+    }
   return state;
 }
 
@@ -54,62 +61,22 @@ const store = createStore(reducer);
 class App extends Component {
   isEmpty = obj => {
     for(var key in obj) {
-        if(obj.hasOwnProperty(key))
-            return false;
+      if(obj.hasOwnProperty(key))
+      return false;
     }
     return true;
   }
 
-  onDragService = (event, service) => {
-    event.preventDefault();
-    this.setState({
-      draggedService: service
-    });
-  }
-
-  onDragOver = (event) => {
-    event.preventDefault();
-  }
-
-  onDropService = (event, clientTarget) => {
-    const { clients, draggedService } = this.state;
-
-    // Preventing dragging services from other customers
-    if (this.isEmpty(draggedService)){
-      return;
-    }
-
-    const filteredClients = clients.filter(client => client.name !== clientTarget.name)
-    this.setState({
-      clients: [...filteredClients, {...clientTarget, services: [...clientTarget.services, draggedService]}],
-      draggedService: {},
-    });
-  }
-
   render() {
-
-    // function sortClients(a, b) {
-    //   const nameA = a.name.toUpperCase();
-    //   const nameB = b.name.toUpperCase();
-    //
-    //   let comparison = 0;
-    //   if (nameA > nameB) {
-    //     comparison = 1;
-    //   } else if (nameA < nameB) {
-    //     comparison = -1;
-    //   }
-    //   return comparison;
-    // }
-
     return (
       <div className="container is-fluid">
-        <section class="hero is-dark is-bold header-hero">
-          <div class="hero-body">
-            <div class="container is-fluid">
-              <h1 class="title">
+        <section className="hero is-dark is-bold header-hero">
+          <div className="hero-body">
+            <div className="container is-fluid">
+              <h1 className="title">
                 Beauty Sallon
               </h1>
-              <h2 class="subtitle">
+              <h2 className="subtitle">
                 <small>
                   Made with ReactJS
                 </small>
@@ -119,9 +86,9 @@ class App extends Component {
         </section>
         <div className="app-container">
           <Provider store={store}>
-            <AddClient addClient={this.addClient} updateClientInput={this.updateClientInput}/>
-            <ClientList onDragOver={this.onDragOver} onDropService={this.onDropService}/>
-            <ServicesList onDragService={this.onDragService}/>
+            <AddClient/>
+            <ClientList/>
+            <ServicesList/>
           </Provider>
         </div>
       </div>

@@ -26,7 +26,7 @@ class ServicesList extends React.Component {
         </p>
 
         {this.props.services.map((service, index) => (
-          <Service service={service} onDragService={this.props.onDragService}/>
+          <Service service={service}/>
         ))}
       </nav>
     )
