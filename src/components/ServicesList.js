@@ -1,5 +1,6 @@
 import React from 'react';
 import Service from './Service'
+import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
   render (){
@@ -25,11 +26,15 @@ class ServicesList extends React.Component {
         </p>
 
         {this.props.services.map((service, index) => (
-          <Service service={service} onDragService={this.props.onDragService}/>
+          <Service service={service}/>
         ))}
       </nav>
     )
   }
 }
 
-export default ServicesList;
+const mapStateToProps = state => ({
+  services: state.services
+});
+
+export default connect(mapStateToProps)(ServicesList);
