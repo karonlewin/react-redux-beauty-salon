@@ -3,6 +3,11 @@ import Service from './Service'
 import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
+  onKeyUp = () => {
+    let text = this.input.value.trim();
+    this.props.dispatch({type: 'FILTER_SERVICE', serviceFilter: text})
+  }
+
   render (){
     return (
       <nav className="services-list">
@@ -11,7 +16,7 @@ class ServicesList extends React.Component {
         </p>
         <div className="panel-block">
           <p className="control has-icons-left">
-            <input className="input is-small is-danger" type="text" placeholder="search"/>
+            <input className="input is-small is-danger" type="text" placeholder="search" ref={node => {this.input = node;}} onKeyUp={this.onKeyUp}/>
             <span className="icon is-small is-left">
               <i className="fas fa-search" aria-hidden="true"></i>
             </span>
@@ -25,7 +30,7 @@ class ServicesList extends React.Component {
           <a className="has-text-danger">others</a>
         </p>
 
-        {this.props.services.map((service, index) => (
+        {this.props.filteredServices.map((service, index) => (
           <Service service={service}/>
         ))}
       </nav>
@@ -34,7 +39,7 @@ class ServicesList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  services: state.services
+  filteredServices: state.services.filter(service => service.name.toLowerCase().startsWith(state.serviceFilter.toLowerCase()))
 });
 
 export default connect(mapStateToProps)(ServicesList);
