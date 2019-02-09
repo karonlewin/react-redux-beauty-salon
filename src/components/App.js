@@ -45,7 +45,8 @@ const initialState = {
 
   ],
   draggedService: {},
-  serviceFilter: ''
+  serviceFilter: '',
+  serviceCategoryFilter: ''
 };
 
 
@@ -66,7 +67,7 @@ function reducer(state = initialState, action){
               clients: [...filteredClients, {...action.clientTarget, services: [...action.clientTarget.services, action.service]}],
               draggedService: {}};
     case "FILTER_SERVICE":
-      return {...state, serviceFilter: action.serviceFilter};
+      return {...state, serviceFilter: action.serviceFilter === undefined ? state.serviceFilter : action.serviceFilter, serviceCategoryFilter: action.serviceCategoryFilter === undefined ? state.serviceCategoryFilter : action.serviceCategoryFilter};
     }
   return state;
 }

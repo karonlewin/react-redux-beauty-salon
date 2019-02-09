@@ -8,6 +8,10 @@ class ServicesList extends React.Component {
     this.props.dispatch({type: 'FILTER_SERVICE', serviceFilter: text})
   }
 
+  onCategoryClick = (category) => {
+    this.props.dispatch({type: 'FILTER_SERVICE', serviceCategoryFilter: category})
+  }
+
   render (){
     return (
       <nav className="services-list">
@@ -23,11 +27,11 @@ class ServicesList extends React.Component {
           </p>
         </div>
         <p className="panel-tabs">
-          <a className="is-active has-text-danger">all</a>
-          <a className="has-text-danger">hair</a>
-          <a className="has-text-danger">nails</a>
-          <a className="has-text-danger">products</a>
-          <a className="has-text-danger">others</a>
+          <a className={this.props.serviceCategoryFilter === '' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('')}>all</a>
+          <a className={this.props.serviceCategoryFilter === 'hair' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('hair')}>hair</a>
+          <a className={this.props.serviceCategoryFilter === 'nails' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('nails')}>nails</a>
+          <a className={this.props.serviceCategoryFilter === 'products' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('products')}>products</a>
+          <a className={this.props.serviceCategoryFilter === 'others' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('others')}>others</a>
         </p>
 
         {this.props.filteredServices.map((service, index) => (
@@ -39,7 +43,11 @@ class ServicesList extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  filteredServices: state.services.filter(service => service.name.toLowerCase().startsWith(state.serviceFilter.toLowerCase()))
+  filteredServices: state.services.filter(
+    service => service.name.toLowerCase().startsWith(state.serviceFilter.toLowerCase()) &&
+                service.category === (state.serviceCategoryFilter === '' ? service.category : state.serviceCategoryFilter)
+  ),
+  serviceCategoryFilter: state.serviceCategoryFilter
 });
 
 export default connect(mapStateToProps)(ServicesList);
