@@ -28,6 +28,7 @@ class ServicesList extends React.Component {
         </div>
         <p className="panel-tabs">
           <a className={this.props.serviceCategoryFilter === '' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('')}>all</a>
+          <a className={this.props.serviceCategoryFilter === 'facial' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('facial')}>facial</a>
           <a className={this.props.serviceCategoryFilter === 'hair' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('hair')}>hair</a>
           <a className={this.props.serviceCategoryFilter === 'nails' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('nails')}>nails</a>
           <a className={this.props.serviceCategoryFilter === 'products' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('products')}>products</a>
@@ -35,7 +36,7 @@ class ServicesList extends React.Component {
         </p>
 
         {this.props.filteredServices.map((service, index) => (
-          <Service service={service}/>
+          <Service service={service} key={service.name}/>
         ))}
       </nav>
     )
@@ -44,7 +45,7 @@ class ServicesList extends React.Component {
 
 const mapStateToProps = state => ({
   filteredServices: state.services.filter(
-    service => service.name.toLowerCase().startsWith(state.serviceFilter.toLowerCase()) &&
+    service => service.name.toLowerCase().match(state.serviceFilter.toLowerCase()) &&
                 service.category === (state.serviceCategoryFilter === '' ? service.category : state.serviceCategoryFilter)
   ),
   serviceCategoryFilter: state.serviceCategoryFilter
