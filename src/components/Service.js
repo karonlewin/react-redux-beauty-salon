@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import CategoryIcon from './CategoryIcon'
 
 class Service extends React.Component {
   onDragService = (event, service) => {
@@ -14,9 +15,7 @@ class Service extends React.Component {
   render (){
     return (
       <a className="panel-block is-active" draggable onDrag={event => this.onDragService(event, this.props.service)}>
-        <span className="panel-icon has-text-danger">
-          <i className="fas fa-book" aria-hidden="true"></i>
-        </span>
+        <CategoryIcon category={this.props.service.category}/>
         {this.props.service.name} | ${this.props.service.price}
       </a>
     )

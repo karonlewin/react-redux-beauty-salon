@@ -2,8 +2,6 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 class AddClient extends React.Component {
-  inputRef = React.createRef();
-
   addClient = () => {
     let text = this.input.value.trim();
     if (text.length > 0){
@@ -12,11 +10,6 @@ class AddClient extends React.Component {
       alert('Client with no name?! Really?')
     }
     this.input.value = '';
-  }
-
-  handleChange = event => {
-    let text = this.inputRef.current.value.trim();
-    this.props.updateClientInput(text);
   }
 
   render (){
