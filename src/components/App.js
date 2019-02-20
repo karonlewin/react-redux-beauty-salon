@@ -55,10 +55,12 @@ function reducer(state = initialState, action){
   switch (action.type) {
     case "ADD_CLIENT":
       return {...state,
-          clients: state.clients.concat({name: action.client,
+          clients: state.clients.concat({name: action.clientName,
                                          services: [],
                                          registered_at: new Date()})};
-
+    case "ADD_CLIENT_ERROR":
+      alert('Client with no name?! Really?')
+      return state;
     case "DRAG_SERVICE":
       return {...state, draggedService: action.service};
     case "DROP_SERVICE":
