@@ -1,6 +1,22 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { DragSource } from 'react-dnd';
 import CategoryIcon from './CategoryIcon'
+
+
+const serviceSpec = {
+  beginDrag(props) {
+    console.log(props);
+    return props.service;
+  }
+}
+
+function collect(connect, monitor) {
+  return {
+    connectDragSource: connect.dragSource(),
+    isDragging: monitor.isDragging()
+  }
+}
 
 class Service extends React.Component {
   onDragService = (event, service) => {
@@ -13,10 +29,11 @@ class Service extends React.Component {
   }
 
   render (){
-    return (
-      <a className="panel-block is-active" draggable onDrag={event => this.onDragService(event, this.props.service)}>
-        <CategoryIcon category={this.props.service.category}/>
-        {this.props.service.name} | ${this.props.service.price}
+    const { isDraggin, connectDragSource, service } = this.props;
+    return connectDragSource(
+      <a className="panel-block is-active">
+        <CategoryIcon category={service.category}/>
+        {service.name} | ${service.price}
       </a>
     )
   }
@@ -26,4 +43,6 @@ const mapStateToProps = state => ({
   draggedService: state.draggedService
 });
 
-export default connect(mapStateToProps)(Service);
+
+var reduxConnectedService = connect(mapStateToProps)(Service);
+export default DragSource('service', serviceSpec, collect)(reduxConnectedService);

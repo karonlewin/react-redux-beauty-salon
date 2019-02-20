@@ -2,7 +2,32 @@ import React from 'react';
 import Client from './Client';
 import Service from './Service';
 import ClientTotal from './ClientTotal'
+import { DropTarget } from 'react-dnd';
 import { connect } from 'react-redux';
+
+
+const clientServicesSpec = {
+  drop(props, monitor, component) {
+    if (monitor.didDrop()) {
+      return;
+    }
+
+    // Obtain the dragged item
+    const item = monitor.getItem();
+    console.log(item);
+    console.log(props);
+    props.dispatch({type: 'DROP_SERVICE', service: item, clientTarget: props.client})
+
+    return { };
+  }
+}
+
+function collect(connect, monitor){
+  return {
+    connectDropTarget: connect.dropTarget(),
+    hovered: monitor.isOver()
+  }
+}
 
 class ClientServices extends React.Component {
   onDropService = (event, clientTarget) => {
@@ -10,8 +35,9 @@ class ClientServices extends React.Component {
   }
 
   render (){
-    return (
-      <div className="box" onDrop={event => this.onDropService(event, this.props.client)} onDragOver={event => event.preventDefault()}>
+    const { connectDropTarget, hovered, service } = this.props;
+    return connectDropTarget(
+      <div className="box">
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
@@ -24,7 +50,7 @@ class ClientServices extends React.Component {
               <b>Services:</b>
               <br/>
               {this.props.client.services.map((service, index) => (
-                <Service service={service} onDragService={(event) => event.preventDefault()}/>
+                <Service service={service}/>
               ))}
             </div>
             <nav className="level is-mobile">
@@ -58,4 +84,5 @@ const mapStateToProps = state => ({
   draggedService: state.draggedService
 });
 
-export default connect(mapStateToProps)(ClientServices);
+var reduxConnectedClientServices = connect(mapStateToProps)(ClientServices);
+export default DropTarget('service', clientServicesSpec, collect)(reduxConnectedClientServices);
