@@ -12,14 +12,14 @@ export const actionAddClient = (clientName) => {
   }
 }
 
-// export const dragService = () => {
-//   return { type: DRAG_SERVICE, payload: promise };
-// }
-//
-// export const dropService = () => {
-//   return { type: DROP_SERVICE, payload: promise };
-// }
-//
-// export const filterService = () => {
-//   return { type: FILTER_SERVICE, payload: promise };
-// }
+export const dragService = (service) => {
+  return { type: DRAG_SERVICE, service: service };
+}
+
+export const dropService = (service, clientTarget) => {
+  return { type: DROP_SERVICE, service: service, clientTarget: clientTarget };
+}
+
+export const filterService = (serviceFilter, serviceCategoryFilter) => {
+  return { type: FILTER_SERVICE, serviceFilter: serviceFilter, serviceCategoryFilter: serviceCategoryFilter };
+}

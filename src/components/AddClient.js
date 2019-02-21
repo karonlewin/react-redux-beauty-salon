@@ -37,11 +37,9 @@ class AddClient extends React.Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    actionAddClient: (clientName) => { dispatch(actionAddClient(clientName)) }
-  }
-}
+const mapDispatchToProps = (dispatch) => ({
+  actionAddClient: (clientName) => { dispatch(actionAddClient(clientName)) }
+});
 
 const mapStateToProps = state => ({
   clientInput: state.clientInput

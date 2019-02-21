@@ -1,15 +1,18 @@
 import React from 'react';
 import Service from './Service'
+import { filterService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
   onKeyUp = () => {
     let text = this.input.value.trim();
-    this.props.dispatch({type: 'FILTER_SERVICE', serviceFilter: text})
+    // this.props.dispatch({type: 'FILTER_SERVICE', serviceFilter: text})
+    this.props.filterService(text, undefined);
   }
 
   onCategoryClick = (category) => {
-    this.props.dispatch({type: 'FILTER_SERVICE', serviceCategoryFilter: category})
+    // this.props.dispatch({type: 'FILTER_SERVICE', serviceCategoryFilter: category})
+    this.props.filterService(undefined, category);
   }
 
   render (){
@@ -43,6 +46,10 @@ class ServicesList extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  filterService: (serviceFilter, serviceCategoryFilter) => { dispatch(filterService(serviceFilter, serviceCategoryFilter)) }
+});
+
 const mapStateToProps = state => ({
   filteredServices: state.services.filter(
     service => service.name.toLowerCase().match(state.serviceFilter.toLowerCase()) &&
@@ -51,4 +58,4 @@ const mapStateToProps = state => ({
   serviceCategoryFilter: state.serviceCategoryFilter
 });
 
-export default connect(mapStateToProps)(ServicesList);
+export default connect(mapStateToProps, mapDispatchToProps)(ServicesList);

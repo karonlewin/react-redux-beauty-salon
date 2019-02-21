@@ -2,11 +2,12 @@ import React from 'react';
 import Client from './Client';
 import Service from './Service';
 import ClientTotal from './ClientTotal'
+import { dropService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ClientServices extends React.Component {
   onDropService = (event, clientTarget) => {
-    this.props.dispatch({type: 'DROP_SERVICE', service: this.props.draggedService, clientTarget: clientTarget})
+    this.props.dropService(this.props.draggedService, clientTarget);
   }
 
   render (){
@@ -53,9 +54,13 @@ class ClientServices extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dropService: (service, clientTarget) => { dispatch(dropService(service, clientTarget)) }
+});
+
 const mapStateToProps = state => ({
   clients: state.clients,
   draggedService: state.draggedService
 });
 
-export default connect(mapStateToProps)(ClientServices);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientServices);
