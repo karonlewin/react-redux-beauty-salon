@@ -20,7 +20,7 @@ class ClientList extends React.Component {
     return (
       <React.Fragment>
         {this.props.clients.sort(sortClients).map((client, index) => (
-          <ClientServices client={client}/>
+          <ClientServices client={client} key={client.name+client.registered_at.getTime()}/>
         ))}
       </React.Fragment>
 

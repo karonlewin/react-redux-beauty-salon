@@ -1,14 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { actionAddClient } from '../actions/actionCreators'
 
 class AddClient extends React.Component {
   addClient = () => {
-    let text = this.input.value.trim();
-    if (text.length > 0){
-      this.props.dispatch({type: 'ADD_CLIENT', client: text})
-    } else {
-      alert('Client with no name?! Really?')
-    }
+    this.props.actionAddClient(this.input.value.trim());
     this.input.value = '';
   }
 
@@ -41,8 +37,12 @@ class AddClient extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  actionAddClient: (clientName) => { dispatch(actionAddClient(clientName)) }
+});
+
 const mapStateToProps = state => ({
   clientInput: state.clientInput
 });
 
-export default connect(mapStateToProps)(AddClient);
+export default connect(mapStateToProps, mapDispatchToProps)(AddClient);

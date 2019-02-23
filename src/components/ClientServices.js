@@ -2,11 +2,12 @@ import React from 'react';
 import Client from './Client';
 import Service from './Service';
 import ClientTotal from './ClientTotal'
+import { dropService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ClientServices extends React.Component {
   onDropService = (event, clientTarget) => {
-    this.props.dispatch({type: 'DROP_SERVICE', service: this.props.draggedService, clientTarget: clientTarget})
+    this.props.dropService(this.props.draggedService, clientTarget);
   }
 
   render (){
@@ -15,7 +16,7 @@ class ClientServices extends React.Component {
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
-              <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
+              <img src="https://bulma.io/images/placeholders/128x128.png" alt=""/>
             </figure>
           </div>
           <div className="media-content">
@@ -24,7 +25,7 @@ class ClientServices extends React.Component {
               <b>Services:</b>
               <br/>
               {this.props.client.services.map((service, index) => (
-                <Service service={service} onDragService={(event) => event.preventDefault()}/>
+                <Service service={service} onDragService={(event) => event.preventDefault()} key={this.props.client.name + service.name}/>
               ))}
             </div>
             <nav className="level is-mobile">
@@ -53,9 +54,13 @@ class ClientServices extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  dropService: (service, clientTarget) => { dispatch(dropService(service, clientTarget)) }
+});
+
 const mapStateToProps = state => ({
   clients: state.clients,
   draggedService: state.draggedService
 });
 
-export default connect(mapStateToProps)(ClientServices);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientServices);

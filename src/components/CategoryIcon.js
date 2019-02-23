@@ -5,16 +5,12 @@ class CategoryIcon extends React.Component {
     switch (category) {
       case 'facial':
         return 'fa-theater-masks';
-        break;
       case 'hair':
         return 'fa-cut';
-        break;
       case 'nails':
         return 'fa-hand-scissors';
-        break;
       case 'products':
         return 'fa-burn'
-        break;
       default:
         return 'fa-shopping-cart'
     }
