@@ -16,7 +16,7 @@ class ClientServices extends React.Component {
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
-              <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
+              <img src="https://bulma.io/images/placeholders/128x128.png" alt=""/>
             </figure>
           </div>
           <div className="media-content">
@@ -25,7 +25,7 @@ class ClientServices extends React.Component {
               <b>Services:</b>
               <br/>
               {this.props.client.services.map((service, index) => (
-                <Service service={service} onDragService={(event) => event.preventDefault()}/>
+                <Service service={service} onDragService={(event) => event.preventDefault()} key={this.props.client.name + service.name}/>
               ))}
             </div>
             <nav className="level is-mobile">

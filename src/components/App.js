@@ -70,8 +70,9 @@ function reducer(state = initialState, action){
               draggedService: {}};
     case "FILTER_SERVICE":
       return {...state, serviceFilter: action.serviceFilter === undefined ? state.serviceFilter : action.serviceFilter, serviceCategoryFilter: action.serviceCategoryFilter === undefined ? state.serviceCategoryFilter : action.serviceCategoryFilter};
-    }
-  return state;
+    default:
+      return state
+  }
 }
 
 const store = createStore(reducer);
