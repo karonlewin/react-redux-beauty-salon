@@ -1,15 +1,18 @@
 import React from 'react';
 import Service from './Service'
+import { filterService, dragService, dropService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
   onKeyUp = () => {
     let text = this.input.value.trim();
-    this.props.dispatch({type: 'FILTER_SERVICE', serviceFilter: text})
+    // this.props.dispatch({type: 'FILTER_SERVICE', serviceFilter: text})
+    this.props.filterService(text, undefined);
   }
 
   onCategoryClick = (category) => {
-    this.props.dispatch({type: 'FILTER_SERVICE', serviceCategoryFilter: category})
+    // this.props.dispatch({type: 'FILTER_SERVICE', serviceCategoryFilter: category})
+    this.props.filterService(undefined, category);
   }
 
   render (){
@@ -36,12 +39,18 @@ class ServicesList extends React.Component {
         </p>
 
         {this.props.filteredServices.map((service, index) => (
-          <Service service={service} key={service.name}/>
+          <Service service={service} key={service.name} dragService={this.props.dragService} dropService={this.props.dropService}/>
         ))}
       </nav>
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => ({
+  filterService: (serviceFilter, serviceCategoryFilter) => { dispatch(filterService(serviceFilter, serviceCategoryFilter)) },
+  dragService: (service) => { dispatch(dragService(service)) },
+  dropService: (service, clientTarget) => { dispatch(dropService(service, clientTarget)) }
+});
 
 const mapStateToProps = state => ({
   filteredServices: state.services.filter(
@@ -51,4 +60,4 @@ const mapStateToProps = state => ({
   serviceCategoryFilter: state.serviceCategoryFilter
 });
 
-export default connect(mapStateToProps)(ServicesList);
+export default connect(mapStateToProps, mapDispatchToProps)(ServicesList);

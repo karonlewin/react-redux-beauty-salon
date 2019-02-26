@@ -3,22 +3,13 @@ import Client from './Client';
 import Service from './Service';
 import ClientTotal from './ClientTotal'
 import { DropTarget } from 'react-dnd';
+import { dropService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 
 const clientServicesSpec = {
   drop(props, monitor, component) {
-    if (monitor.didDrop()) {
-      return;
-    }
-
-    // Obtain the dragged item
-    const item = monitor.getItem();
-    console.log(item);
-    console.log(props);
-    props.dispatch({type: 'DROP_SERVICE', service: item, clientTarget: props.client})
-
-    return { };
+    return props.client;
   }
 }
 
@@ -30,18 +21,14 @@ function collect(connect, monitor){
 }
 
 class ClientServices extends React.Component {
-  onDropService = (event, clientTarget) => {
-    this.props.dispatch({type: 'DROP_SERVICE', service: this.props.draggedService, clientTarget: clientTarget})
-  }
-
   render (){
-    const { connectDropTarget, hovered, service } = this.props;
+    const { connectDropTarget, hovered, service, dropService } = this.props;
     return connectDropTarget(
       <div className="box">
         <article className="media">
           <div className="media-left">
             <figure className="image is-64x64">
-              <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image"/>
+              <img src="https://bulma.io/images/placeholders/128x128.png" alt=""/>
             </figure>
           </div>
           <div className="media-content">
@@ -50,7 +37,7 @@ class ClientServices extends React.Component {
               <b>Services:</b>
               <br/>
               {this.props.client.services.map((service, index) => (
-                <Service service={service}/>
+                <Service service={service} key={this.props.client.name + service.name}/>
               ))}
             </div>
             <nav className="level is-mobile">
@@ -79,10 +66,13 @@ class ClientServices extends React.Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+});
+
 const mapStateToProps = state => ({
   clients: state.clients,
   draggedService: state.draggedService
 });
 
-var reduxConnectedClientServices = connect(mapStateToProps)(ClientServices);
+var reduxConnectedClientServices = connect(mapStateToProps, mapDispatchToProps)(ClientServices);
 export default DropTarget('service', clientServicesSpec, collect)(reduxConnectedClientServices);
