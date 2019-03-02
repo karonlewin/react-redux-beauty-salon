@@ -15,13 +15,7 @@ const serviceSpec = {
     if (!monitor.didDrop()){
       return;
     }
-
-    // console.log();
-    console.log(props);
-    console.log(monitor.getDropResult());
     props.dropService(props.service, monitor.getDropResult());
-    // console.log(dropService());
-
   }
 }
 
@@ -34,15 +28,6 @@ function collect(connect, monitor) {
 }
 
 class Service extends React.Component {
-  onDragService = (event, service) => {
-    event.preventDefault();
-    // Preventing repeated dispatchs
-    if (service === this.props.draggedService){
-      return false;
-    }
-    this.props.dragService(service);
-  }
-
   render (){
     const { isDragging, connectDragSource, service, dropService } = this.props;
     return connectDragSource(
@@ -63,6 +48,5 @@ const mapStateToProps = state => ({
   draggedService: state.draggedService
 });
 
-
-var reduxConnectedService = connect(mapStateToProps, mapDispatchToProps)(Service);
-export default DragSource('service', serviceSpec, collect)(reduxConnectedService);
+var dragSource = DragSource('service', serviceSpec, collect)(Service);
+export default connect(mapStateToProps, mapDispatchToProps)(dragSource);
