@@ -1,17 +1,15 @@
 import React from 'react';
 import Service from './Service'
-import { filterService } from '../actions/actionCreators'
+import { filterService, dragService, dropService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
   onKeyUp = () => {
     let text = this.input.value.trim();
-    // this.props.dispatch({type: 'FILTER_SERVICE', serviceFilter: text})
     this.props.filterService(text, undefined);
   }
 
   onCategoryClick = (category) => {
-    // this.props.dispatch({type: 'FILTER_SERVICE', serviceCategoryFilter: category})
     this.props.filterService(undefined, category);
   }
 
