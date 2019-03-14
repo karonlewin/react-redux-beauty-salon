@@ -3,7 +3,7 @@ import Service from './Service'
 import { filterService, dragService, dropService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
-class ServicesList extends React.Component {
+export class ServiceList extends React.Component {
   onKeyUp = () => {
     let text = this.input.value.trim();
     this.props.filterService(text, undefined);
@@ -56,4 +56,4 @@ const mapStateToProps = state => ({
   serviceCategoryFilter: state.serviceCategoryFilter
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ServicesList);
+export default connect(mapStateToProps, mapDispatchToProps)(ServiceList);

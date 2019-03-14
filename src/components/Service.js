@@ -27,7 +27,7 @@ function collect(connect, monitor) {
   }
 }
 
-class Service extends React.Component {
+export class Service extends React.Component {
   render (){
     const { isDragging, connectDragSource, service, dropService } = this.props;
     return connectDragSource(
