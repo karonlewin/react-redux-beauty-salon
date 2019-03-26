@@ -9,19 +9,21 @@ import { generateService } from '../utils/testData';
 configure({ adapter: new Adapter() });
 
 describe('FilterableProductTable', () => {
-  let wrapper;
   const service = generateService();
+  const identity = el => el
 
-  // beforeEach(() => {
+  let wrapper;
+
+  beforeEach(() => {
     wrapper = shallow(
-      <Service service={service}/>
+      <Service service={service} connectDragSource={identity}/>
     )
-  // });
+  });
 
-  xit('renders the service', () => {
-    // expect(wrapper.contains(serviceText)).to.equal(true);
-    expect(wrapper.render()).to.have.string(service.name);
-    // expect($('div.MyDive').text()).to.have.string('Some text');
+  it('renders the service name and price', () => {
+    console.log(wrapper.render());
+    expect(wrapper.contains(service.name)).to.equal(true);
+    expect(wrapper.contains(service.price)).to.equal(true);
   });
 
 });
