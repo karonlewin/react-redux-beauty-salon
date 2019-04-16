@@ -3,7 +3,7 @@ import Service from './Service'
 import { filterService, dragService, dropService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
-export class ServiceList extends React.Component {
+export class ServicesList extends React.Component {
   onKeyUp = () => {
     let text = this.input.value.trim();
     this.props.filterService(text, undefined);
@@ -15,7 +15,7 @@ export class ServiceList extends React.Component {
 
   render (){
     return (
-      <nav className="services-list">
+      <nav className="services-nav">
         <p className="panel-heading">
           Services
         </p>
@@ -36,9 +36,11 @@ export class ServiceList extends React.Component {
           <a className={this.props.serviceCategoryFilter === 'others' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('others')}>others</a>
         </p>
 
-        {this.props.filteredServices.map((service, index) => (
-          <Service service={service} key={service.name}/>
-        ))}
+        <div className="services-list">
+          {this.props.filteredServices.map((service, index) => (
+            <Service service={service} key={service.name}/>
+          ))}
+        </div>
       </nav>
     )
   }
@@ -56,4 +58,4 @@ const mapStateToProps = state => ({
   serviceCategoryFilter: state.serviceCategoryFilter
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ServiceList);
+export default connect(mapStateToProps, mapDispatchToProps)(ServicesList);

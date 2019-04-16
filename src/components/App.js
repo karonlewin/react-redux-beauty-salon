@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ServiceList from './ServiceList'
+import ServicesList from './ServicesList'
 import ClientList from './ClientList';
 import AddClient from './AddClient';
 import { createStore } from 'redux';
@@ -109,7 +109,7 @@ class App extends Component {
           <Provider store={store}>
             <AddClient/>
             <ClientList/>
-            <ServiceList/>
+            <ServicesList/>
           </Provider>
         </div>
       </div>

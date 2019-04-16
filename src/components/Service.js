@@ -31,7 +31,7 @@ export class Service extends React.Component {
   render (){
     const { isDragging, connectDragSource, service, dropService } = this.props;
     return connectDragSource(
-      <a className="panel-block is-active">
+      <a className="panel-block is-active service-description">
         <CategoryIcon category={service.category}/>
         {service.name} | ${service.price}
       </a>

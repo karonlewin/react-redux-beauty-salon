@@ -11,7 +11,7 @@
   grid-row-end: 2;
 }
 
-.services-list {
+.services-nav {
   grid-column-start: 1;
   grid-row-start: 2;
   grid-row-end: 6;
