@@ -1,10 +1,10 @@
-import React from 'react';
+import React from 'react'
 
 class ClientTotal extends React.Component {
-  render (){
+  render () {
     const total = this.props.services.reduce((total, service) => {
-      return total + service.price;
-    }, 0);
+      return total + service.price
+    }, 0)
 
     return (
       <div>
@@ -16,4 +16,4 @@ class ClientTotal extends React.Component {
   }
 }
 
-export default ClientTotal;
+export default ClientTotal

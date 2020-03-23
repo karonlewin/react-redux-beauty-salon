@@ -1,7 +1,7 @@
-import React from 'react';
+import React from 'react'
 
 class Client extends React.Component {
-  render (){
+  render () {
     return (
       <div className="client" >
         <p>
@@ -13,4 +13,4 @@ class Client extends React.Component {
   }
 }
 
-export default Client;
+export default Client

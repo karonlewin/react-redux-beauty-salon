@@ -1,19 +1,18 @@
-import React from 'react';
-import Client from './Client';
-import Service from './Service';
+import React from 'react'
+import Client from './Client'
+import Service from './Service'
 import ClientTotal from './ClientTotal'
-import { DropTarget } from 'react-dnd';
+import { DropTarget } from 'react-dnd'
 import { dropService } from '../actions/actionCreators'
-import { connect } from 'react-redux';
-
+import { connect } from 'react-redux'
 
 const clientServicesSpec = {
-  drop(props, monitor, component) {
-    return props.client;
+  drop (props, monitor, component) {
+    return props.client
   }
 }
 
-function collect(connect, monitor){
+function collect (connect, monitor) {
   return {
     connectDropTarget: connect.dropTarget(),
     hovered: monitor.isOver()
@@ -21,8 +20,8 @@ function collect(connect, monitor){
 }
 
 class ClientServices extends React.Component {
-  render (){
-    const { connectDropTarget, hovered, service, dropService } = this.props;
+  render () {
+    const { connectDropTarget, hovered, service, dropService } = this.props
     return connectDropTarget(
       <div className="box">
         <article className="media">
@@ -67,12 +66,12 @@ class ClientServices extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-});
+})
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   clients: state.clients,
   draggedService: state.draggedService
-});
+})
 
-var reduxConnectedClientServices = connect(mapStateToProps, mapDispatchToProps)(ClientServices);
-export default DropTarget('service', clientServicesSpec, collect)(reduxConnectedClientServices);
+const reduxConnectedClientServices = connect(mapStateToProps, mapDispatchToProps)(ClientServices)
+export default DropTarget('service', clientServicesSpec, collect)(reduxConnectedClientServices)
