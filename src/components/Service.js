@@ -1,25 +1,23 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { DragSource } from 'react-dnd';
+import React from 'react'
+import { connect } from 'react-redux'
+import { DragSource } from 'react-dnd'
 import CategoryIcon from './CategoryIcon'
-import { dragService } from '../actions/actionCreators'
-import { dropService } from '../actions/actionCreators'
-
+import { dragService, dropService } from '../actions/actionCreators'
 
 const serviceSpec = {
-  beginDrag(props) {
-    return props.service;
+  beginDrag (props) {
+    return props.service
   },
-  endDrag(props, monitor, component){
-    let { dropService } = props;
-    if (!monitor.didDrop()){
-      return;
+  endDrag (props, monitor, component) {
+    const { dropService } = props
+    if (!monitor.didDrop()) {
+      return
     }
-    props.dropService(props.service, monitor.getDropResult());
+    props.dropService(props.service, monitor.getDropResult())
   }
 }
 
-function collect(connect, monitor) {
+function collect (connect, monitor) {
   return {
     connectDragSource: connect.dragSource(),
     connectDragPreview: connect.dragPreview(),
@@ -28,8 +26,8 @@ function collect(connect, monitor) {
 }
 
 class Service extends React.Component {
-  render (){
-    const { isDragging, connectDragSource, service, dropService } = this.props;
+  render () {
+    const { isDragging, connectDragSource, service, dropService } = this.props
     return connectDragSource(
       <a className="panel-block is-active">
         <CategoryIcon category={service.category}/>
@@ -40,13 +38,17 @@ class Service extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dragService: (service) => { dispatch(dragService(service)) },
-  dropService: (service, clientTarget) => { dispatch(dropService(service, clientTarget)) }
-});
+  dragService: (service) => {
+    dispatch(dragService(service))
+  },
+  dropService: (service, clientTarget) => {
+    dispatch(dropService(service, clientTarget))
+  }
+})
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   draggedService: state.draggedService
-});
+})
 
-var dragSource = DragSource('service', serviceSpec, collect)(Service);
-export default connect(mapStateToProps, mapDispatchToProps)(dragSource);
+const dragSource = DragSource('service', serviceSpec, collect)(Service)
+export default connect(mapStateToProps, mapDispatchToProps)(dragSource)
