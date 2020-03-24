@@ -1,6 +1,6 @@
 import React from 'react';
 import Service from './Service'
-import { filterService, dragService, dropService } from '../actions/actionCreators'
+import { filterService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {

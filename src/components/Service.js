@@ -8,8 +8,7 @@ const serviceSpec = {
   beginDrag (props) {
     return props.service
   },
-  endDrag (props, monitor, component) {
-    const { dropService } = props
+  endDrag (props, monitor) {
     if (!monitor.didDrop()) {
       return
     }
@@ -27,7 +26,7 @@ function collect (connect, monitor) {
 
 class Service extends React.Component {
   render () {
-    const { isDragging, connectDragSource, service, dropService } = this.props
+    const { connectDragSource, service} = this.props
     return connectDragSource(
       <a className="panel-block is-active">
         <CategoryIcon category={service.category}/>

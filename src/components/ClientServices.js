@@ -7,7 +7,7 @@ import { connect } from 'react-redux'
 import { actionRemoveClientService } from '../actions/actionCreators'
 
 const clientServicesSpec = {
-  drop(props, monitor, component) {
+  drop(props) {
     return props.client
   }
 }
@@ -26,7 +26,7 @@ class ClientServices extends React.Component {
   }
 
   render() {
-    const { connectDropTarget, hovered, service, dropService } = this.props
+    const { connectDropTarget } = this.props
     return connectDropTarget(
       <div className="box">
         <article className="media">

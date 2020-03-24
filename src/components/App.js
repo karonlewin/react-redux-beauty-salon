@@ -58,8 +58,7 @@ const initialState = {
 function reducer(state = initialState, action){
   console.log(action);
 
-  
-  let filteredClients = new Array()
+  let filteredClients = []
 
   switch (action.type) {
     case "ADD_CLIENT":
