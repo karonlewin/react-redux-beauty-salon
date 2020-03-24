@@ -2,11 +2,13 @@ import React from 'react'
 
 class Client extends React.Component {
   render () {
+    const client = this.props.client
+
     return (
       <div className="client" >
         <p>
-          <strong>{this.props.client.name}</strong> <small>@{this.props.client.name.trim().toLowerCase()}</small>
-          <br/><small>{this.props.client.registered_at.toLocaleTimeString()}</small>
+          <strong>{client.name}</strong> <small>@{client.name.trim().toLowerCase()}</small>
+          <br/><small>{client.registered_at.toLocaleTimeString()}</small>
         </p>
       </div>
     )

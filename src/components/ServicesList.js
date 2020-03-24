@@ -48,12 +48,12 @@ const mapDispatchToProps = (dispatch) => ({
   filterService: (serviceFilter, serviceCategoryFilter) => { dispatch(filterService(serviceFilter, serviceCategoryFilter)) }
 });
 
-const mapStateToProps = state => ({
-  filteredServices: state.services.filter(
-    service => service.name.toLowerCase().match(state.serviceFilter.toLowerCase()) &&
-                service.category === (state.serviceCategoryFilter === '' ? service.category : state.serviceCategoryFilter)
+const mapStateToProps = store => ({
+  filteredServices: store.servicesState.services.filter(
+    service => service.name.toLowerCase().match(store.servicesState.serviceFilter.toLowerCase()) &&
+                service.category === (store.servicesState.serviceCategoryFilter === '' ? service.category : store.servicesState.serviceCategoryFilter)
   ),
-  serviceCategoryFilter: state.serviceCategoryFilter
+  serviceCategoryFilter: store.servicesState.serviceCategoryFilter
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServicesList);

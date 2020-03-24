@@ -14,7 +14,7 @@ export const actionAddClient = (clientName) => {
 }
 
 export const actionRemoveClientService = (clientId, clientServiceId) => {
-  return { type: REMOVE_CLIENT_SERVICE, clientId, clientServiceId }
+  return { type: REMOVE_CLIENT_SERVICE, payload: { clientId, clientServiceId } }
 }
 
 export const dragService = (service) => {

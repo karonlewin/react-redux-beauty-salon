@@ -26,7 +26,7 @@ function collect (connect, monitor) {
 
 class Service extends React.Component {
   render () {
-    const { connectDragSource, service} = this.props
+    const { connectDragSource, service } = this.props
     return connectDragSource(
       <a className="panel-block is-active">
         <CategoryIcon category={service.category}/>

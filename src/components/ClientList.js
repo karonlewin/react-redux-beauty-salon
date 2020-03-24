@@ -28,8 +28,8 @@ class ClientList extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  clients: state.clients
+const mapStateToProps = store => ({
+  clients: store.clientsState.clients
 })
 
 export default connect(mapStateToProps)(ClientList)
