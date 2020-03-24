@@ -10,7 +10,8 @@
     "react-dom": "^16.7.0",
     "react-redux": "^6.0.0",
     "react-scripts": "^2.1.5",
-    "redux": "^4.0.1"
+    "redux": "^4.0.1",
+    "yarn": "^1.22.4"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -33,7 +34,6 @@
     "eslint-plugin-import": "^2.20.1",
     "eslint-plugin-node": "^11.0.0",
     "eslint-plugin-promise": "^4.2.1",
-    "eslint-plugin-react": "^7.19.0",
     "eslint-plugin-standard": "^4.0.1"
   }
 }
