@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
 import CategoryIcon from './CategoryIcon'
@@ -34,6 +35,15 @@ class Service extends React.Component {
       </a>
     )
   }
+}
+
+Service.propTypes = {
+  service: PropTypes.shape({
+    name: PropTypes.string,
+    category: PropTypes.string,
+    price: PropTypes.number
+  }),
+  connectDragSource: PropTypes.object
 }
 
 const mapDispatchToProps = (dispatch) => ({

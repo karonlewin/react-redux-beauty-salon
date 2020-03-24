@@ -1,4 +1,4 @@
-var _ = require('lodash')
+import _ from 'lodash';
 
 const ADD_CLIENT = 'ADD_CLIENT'
 const ADD_CLIENT_ERROR = 'ADD_CLIENT_ERROR'
@@ -7,14 +7,16 @@ const DROP_SERVICE = 'DROP_SERVICE'
 
 const initialState = {
   clients: [
-    { id: new Date('Wed, 27 July 2017 07:45:00 GMT').getTime(), name: 'Rose', services: [], registered_at: new Date() },
-    { id: new Date('Wed, 27 July 2018 07:45:00 GMT').getTime(), name: 'John', registered_at: new Date(), services: [{ name: 'Basic Facial', price: 55, category: 'facial', clientServiceId: Date.now() }] },
-    { id: new Date('Wed, 27 July 2019 07:45:00 GMT').getTime(), name: 'Valerie', services: [], registered_at: new Date() }
+    { id: new Date('Wed, 27 July 2017 07:45:00 GMT').getTime(), name: 'Rose', services: [], registeredAt: new Date() },
+    { id: new Date('Wed, 27 July 2018 07:45:00 GMT').getTime(), name: 'John', registeredAt: new Date(), services: [{ name: 'Basic Facial', price: 55, category: 'facial', clientServiceId: Date.now() }] },
+    { id: new Date('Wed, 27 July 2019 07:45:00 GMT').getTime(), name: 'Valerie', services: [], registeredAt: new Date() }
   ]
 }
 
 export const clientsReducer = (state = initialState, action) => {
   let filteredClients = []
+  let client = null
+  let filteredClientServices = []
 
   switch (action.type) {
     case ADD_CLIENT:
@@ -23,7 +25,7 @@ export const clientsReducer = (state = initialState, action) => {
         clients: state.clients.concat({
           name: action.clientName,
           services: [],
-          registered_at: new Date()
+          registeredAt: new Date()
         })
       }
 
@@ -41,8 +43,8 @@ export const clientsReducer = (state = initialState, action) => {
       }
 
     case REMOVE_CLIENT_SERVICE:
-      const client = _.find(state.clients, { id: action.payload.clientId })
-      const filteredClientServices = client.services.filter(service => service.clientServiceId !== action.payload.clientServiceId)
+      client = _.find(state.clients, { id: action.payload.clientId })
+      filteredClientServices = client.services.filter(service => service.clientServiceId !== action.payload.clientServiceId)
 
       filteredClients = state.clients.filter(client => client.id !== action.payload.clientId)
 

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 import ClientServices from './ClientServices'
 import { connect } from 'react-redux'
 
@@ -19,13 +20,17 @@ class ClientList extends React.Component {
 
     return (
       <React.Fragment>
-        {this.props.clients.sort(sortClients).map((client, index) => (
-          <ClientServices client={client} key={client.name + client.registered_at.getTime()}/>
+        {this.props.clients.sort(sortClients).map(client => (
+          <ClientServices client={client} key={client.name + client.registeredAt.getTime()}/>
         ))}
       </React.Fragment>
 
     )
   }
+}
+
+ClientList.propTypes = {
+  clients: PropTypes.array
 }
 
 const mapStateToProps = store => ({

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 class ClientTotal extends React.Component {
   render () {
@@ -14,6 +15,10 @@ class ClientTotal extends React.Component {
       </div>
     )
   }
+}
+
+ClientTotal.propTypes = {
+  services: PropTypes.array
 }
 
 export default ClientTotal

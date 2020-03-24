@@ -1,5 +1,3 @@
-var _ = require('lodash')
-
 const DRAG_SERVICE = 'DRAG_SERVICE'
 const FILTER_SERVICE = 'FILTER_SERVICE'
 
