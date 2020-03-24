@@ -4,7 +4,8 @@ import ClientList from './ClientList';
 import AddClient from './AddClient';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import { DragDropContext } from 'react-dnd';
+// import { DragDropContext } from 'react-dnd';
+import { DndProvider } from 'react-dnd';
 import HTML5Backend from 'react-dnd-html5-backend';
 import '../css/App.css';
 
@@ -129,15 +130,17 @@ class App extends Component {
           </div>
         </section>
         <div className="app-container">
-          <Provider store={store}>
-            <AddClient/>
-            <ClientList/>
-            <ServicesList/>
-          </Provider>
+          <DndProvider backend={HTML5Backend}>
+            <Provider store={store}>
+              <AddClient/>
+              <ClientList/>
+              <ServicesList/>
+            </Provider>
+          </DndProvider>
         </div>
       </div>
     );
   }
 }
 
-export default DragDropContext(HTML5Backend)(App);
+export default App;
