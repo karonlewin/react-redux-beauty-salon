@@ -3,9 +3,12 @@ import PropTypes from 'prop-types'
 
 class ClientTotal extends React.Component {
   render () {
-    const total = this.props.services.reduce((total, service) => {
-      return total + service.price
-    }, 0)
+    let total = 0
+    const services = this.props.services
+
+    Object.keys(services).map(key => (
+      total = total + services[key].price
+    ))
 
     return (
       <div>
@@ -18,7 +21,7 @@ class ClientTotal extends React.Component {
 }
 
 ClientTotal.propTypes = {
-  services: PropTypes.array
+  services: PropTypes.object
 }
 
 export default ClientTotal

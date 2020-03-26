@@ -2,22 +2,23 @@ import React, { Component } from 'react'
 import ServicesList from './ServicesList'
 import ClientList from './ClientList'
 import AddClient from './AddClient'
-import { createStore, combineReducers } from 'redux'
+import { combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import { DndProvider } from 'react-dnd'
 
 import HTML5Backend from 'react-dnd-html5-backend'
 import { clientsReducer } from '../reducers/clientsReducer'
 import { servicesReducer } from '../reducers/servicesReducer'
-import { composeWithDevTools } from 'redux-devtools-extension'
 import '../css/App.css'
+
+import { configureStore } from '@reduxjs/toolkit'
 
 const rootReducer = combineReducers({
   clientsState: clientsReducer,
   servicesState: servicesReducer
 })
 
-const store = createStore(rootReducer, composeWithDevTools())
+const store = configureStore({ reducer: rootReducer })
 
 class App extends Component {
   render () {
@@ -38,13 +39,13 @@ class App extends Component {
           </div>
         </section>
         <div className="app-container">
-          <DndProvider backend={HTML5Backend}>
             <Provider store={store}>
+          <DndProvider backend={HTML5Backend}>
               <AddClient/>
               <ClientList/>
               <ServicesList/>
-            </Provider>
           </DndProvider>
+            </Provider>
         </div>
       </div>
     )

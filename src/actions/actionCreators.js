@@ -7,7 +7,7 @@ export const REMOVE_CLIENT_SERVICE = 'REMOVE_CLIENT_SERVICE'
 
 export const actionAddClient = (clientName) => {
   if (clientName.length > 0) {
-    return { type: ADD_CLIENT, clientName }
+    return { type: ADD_CLIENT, payload: { clientName } }
   } else {
     return { type: ADD_CLIENT_ERROR }
   }
@@ -18,13 +18,12 @@ export const actionRemoveClientService = (clientId, clientServiceId) => {
 }
 
 export const dragService = (service) => {
-  return { type: DRAG_SERVICE, service }
+  return { type: DRAG_SERVICE, payload: { service } }
 }
 
-export const dropService = (service, clientTarget) => {
-  return { type: DROP_SERVICE, service, clientTarget }
+export const dropService = (service, clientId) => {
+  return { type: DROP_SERVICE, payload: { service, clientId } }
 }
 
 export const filterService = (serviceFilter, serviceCategoryFilter) => {
-  return { type: FILTER_SERVICE, serviceFilter, serviceCategoryFilter }
-}
+  return { type: FILTER_SERVICE, payload: { serviceFilter, serviceCategoryFilter } } }

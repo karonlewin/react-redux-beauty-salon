@@ -5,24 +5,15 @@ import { connect } from 'react-redux'
 
 class ClientList extends React.Component {
   render () {
-    function sortClients (a, b) {
-      const nameA = a.name.toUpperCase()
-      const nameB = b.name.toUpperCase()
-
-      let comparison = 0
-      if (nameA > nameB) {
-        comparison = 1
-      } else if (nameA < nameB) {
-        comparison = -1
-      }
-      return comparison
-    }
+    const clients = this.props.clients
 
     return (
       <React.Fragment>
-        {this.props.clients.sort(sortClients).map(client => (
-          <ClientServices client={client} key={client.name + client.registeredAt.getTime()}/>
-        ))}
+        {
+          Object.keys(clients).map(key => (
+            <ClientServices client={clients[key]} clientId={key} key={Math.random()} />
+          ))
+        }
       </React.Fragment>
 
     )
@@ -30,11 +21,11 @@ class ClientList extends React.Component {
 }
 
 ClientList.propTypes = {
-  clients: PropTypes.array
+  clients: PropTypes.object
 }
 
 const mapStateToProps = store => ({
-  clients: store.clientsState.clients
+  clients: store.clientsState.clients,
 })
 
 export default connect(mapStateToProps)(ClientList)

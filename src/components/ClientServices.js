@@ -8,7 +8,10 @@ import { actionRemoveClientService } from '../actions/actionCreators'
 
 const clientServicesSpec = {
   drop(props) {
-    return props.client
+    // Returns the object to be used in endDrag(props, monitor) on Service.js
+    // This object will be available on monitor.getDropResult() inside endDrag(props, monitor)
+    // and will contain the clientId value
+    return props
   }
 }
 
@@ -21,12 +24,15 @@ function collect(connect, monitor) {
 
 class ClientServices extends React.Component {
   removeClientService = (clientId, clientServiceId) => {
-    console.warn(clientServiceId)
     this.props.actionRemoveClientService(clientId, clientServiceId);
   }
 
   render() {
+
     const { connectDropTarget } = this.props
+    const clientServices = this.props.client.services
+
+
     return connectDropTarget(
       <div className="box">
         <article className="media">
@@ -35,23 +41,26 @@ class ClientServices extends React.Component {
               <Client client={this.props.client} />
               <b>Services:</b>
               <br />
-              {this.props.client.services.map((service, index) => (
-                <>
-                  <div class="columns is-gapless">
-                    <div class="column is-11">
-                      <Service service={service} key={this.props.client.name + service.name} />
-                    </div>
-                    <div class="column is-1">
-                      <button className="button is-danger" onClick={() => this.removeClientService(this.props.client.id, service.clientServiceId)}>
-                        <span className="icon is-small">
-                          <i className="fas fa-trash"></i>
-                        </span>
-                      </button>
-                    </div>
-                  </div>
-                </>
 
-              ))}
+              <>
+                {
+                  Object.keys(clientServices).map(key => (
+                    <div className="columns is-gapless" key={key}>
+                        <div className="column is-11">
+                          <Service service={clientServices[key]}  />
+                        </div>
+                        <div className="column is-1">
+                          <button className="button is-danger" onClick={() => this.removeClientService(this.props.clientId, key)}>
+                            <span className="icon is-small">
+                              <i className="fas fa-trash"></i>
+                            </span>
+                          </button>
+                        </div>
+                      </div>
+                  ))
+                }
+              </>
+              
             </div>
             <nav className="level is-mobile">
               <div className="level-left">

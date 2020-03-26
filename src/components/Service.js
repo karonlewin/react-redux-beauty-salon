@@ -9,11 +9,17 @@ const serviceSpec = {
   beginDrag (props) {
     return props.service
   },
+  
   endDrag (props, monitor) {
     if (!monitor.didDrop()) {
       return
     }
-    props.dropService(props.service, monitor.getDropResult())
+    
+    // monitor.getDropResult() returns an object containing the clientId
+    // so we know for which client this service should be added
+    const { clientId } = monitor.getDropResult()
+
+    props.dropService(props.service, clientId)
   }
 }
 
@@ -43,15 +49,15 @@ Service.propTypes = {
     category: PropTypes.string,
     price: PropTypes.number
   }),
-  connectDragSource: PropTypes.object
+  connectDragSource: PropTypes.instanceOf(Function)
 }
 
 const mapDispatchToProps = (dispatch) => ({
   dragService: (service) => {
     dispatch(dragService(service))
   },
-  dropService: (service, clientTarget) => {
-    dispatch(dropService(service, clientTarget))
+  dropService: (service, clientId) => {
+    dispatch(dropService(service, clientId))
   }
 })
 

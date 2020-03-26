@@ -1,5 +1,6 @@
 import React from 'react'
 import PropTypes from 'prop-types'
+import Moment from 'react-moment';
 
 class Client extends React.Component {
   render () {
@@ -9,7 +10,10 @@ class Client extends React.Component {
       <div className="client" >
         <p>
           <strong>{client.name}</strong> <small>@{client.name.trim().toLowerCase()}</small>
-          <br/><small>{client.registeredAt.toLocaleTimeString()}</small>
+          <br/>
+          <small>
+            <Moment>{client.registeredAt}</Moment>
+          </small>
         </p>
       </div>
     )
@@ -19,7 +23,7 @@ class Client extends React.Component {
 Client.propTypes = {
   client: PropTypes.shape({
     name: PropTypes.string,
-    registeredAt: PropTypes.instanceOf(Date)
+    registeredAt: PropTypes.number
   })
 }
 
