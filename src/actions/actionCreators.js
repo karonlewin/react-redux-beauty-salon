@@ -25,5 +25,5 @@ export const dropService = (service, clientId) => {
   return { type: DROP_SERVICE, payload: { service, clientId } }
 }
 
-export const filterService = (serviceFilter, serviceCategoryFilter) => {
-  return { type: FILTER_SERVICE, payload: { serviceFilter, serviceCategoryFilter } } }
+export const filterService = (serviceNameFilter, serviceCategoryFilter) => {
+  return { type: FILTER_SERVICE, payload: { serviceNameFilter, serviceCategoryFilter } } }

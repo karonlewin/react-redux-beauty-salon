@@ -42,25 +42,17 @@ class ClientServices extends React.Component {
               <b>Services:</b>
               <br />
 
-              <>
+              <nav>
                 {
                   Object.keys(clientServices).map(key => (
-                    <div className="columns is-gapless" key={key}>
-                        <div className="column is-11">
-                          <Service service={clientServices[key]}  />
-                        </div>
-                        <div className="column is-1">
-                          <button className="button is-danger" onClick={() => this.removeClientService(this.props.clientId, key)}>
-                            <span className="icon is-small">
-                              <i className="fas fa-trash"></i>
-                            </span>
-                          </button>
-                        </div>
-                      </div>
+                    <a className="panel-block is-active">
+                      <Service service={clientServices[key]} removeClientService={() => this.removeClientService(this.props.clientId, key)} />
+                      <a class="delete" onClick={() => this.removeClientService(this.props.clientId, key)}></a>
+                    </a>
                   ))
                 }
-              </>
-              
+              </nav>
+
             </div>
             <nav className="level is-mobile">
               <div className="level-left">

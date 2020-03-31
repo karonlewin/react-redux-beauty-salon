@@ -18,7 +18,7 @@ class CategoryIcon extends React.Component {
 
   render(){
     return (
-      <span className="panel-icon has-text-danger">
+      <span className="panel-icon has-text-danger" style={{ marginTop: '5px' }}>
         <i className={"fas " + this.categoryIcon(this.props.category)} aria-hidden="true"></i>
       </span>
     )

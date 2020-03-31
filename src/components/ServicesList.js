@@ -4,19 +4,24 @@ import { filterService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
-  onKeyUp = () => {
-    let text = this.input.value.trim();
-    this.props.filterService(text, undefined);
+  onCategoryClick = (category) => {
+    const currentServiceNameFilter = this.props.serviceNameFilter
+
+    this.props.filterService(currentServiceNameFilter, category);
   }
 
-  onCategoryClick = (category) => {
-    this.props.filterService(undefined, category);
+  handleInputChange = (event) => {
+    const currentServiceCategoryFilter = this.props.serviceCategoryFilter
+    const target = event.target;
+    const value = target.value;
+
+    this.props.filterService(value, currentServiceCategoryFilter);
   }
 
   render (){
 
-    const filteredServices = this.props.filteredServices
-
+    const servicesResult = this.props.servicesResult
+    
     return (
       <nav className="services-list">
         <p className="panel-heading">
@@ -24,7 +29,7 @@ class ServicesList extends React.Component {
         </p>
         <div className="panel-block">
           <p className="control has-icons-left">
-            <input className="input is-small is-danger" type="text" placeholder="search" ref={node => {this.input = node;}} onKeyUp={this.onKeyUp}/>
+            <input className="input is-small is-danger" type="text" placeholder="search" onChange={this.handleInputChange} />
             <span className="icon is-small is-left">
               <i className="fas fa-search" aria-hidden="true"></i>
             </span>
@@ -39,8 +44,10 @@ class ServicesList extends React.Component {
           <a href="#" className={this.props.serviceCategoryFilter === 'others' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('others')}>others</a>
         </p>
         {
-          Object.keys(filteredServices).map(key => (
-            <Service service={filteredServices[key]} key={filteredServices[key].name} />
+          Object.keys(servicesResult).map(key => (
+            <a className="panel-block is-active">
+              <Service service={servicesResult[key]} key={servicesResult[key].name} />
+            </a>
           ))
         }
       </nav>
@@ -49,16 +56,12 @@ class ServicesList extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filterService: (serviceFilter, serviceCategoryFilter) => { dispatch(filterService(serviceFilter, serviceCategoryFilter)) }
+  filterService: (serviceNameFilter, serviceCategoryFilter) => { dispatch(filterService(serviceNameFilter, serviceCategoryFilter)) }
 });
 
 const mapStateToProps = store => ({
-  filteredServices: store.servicesState.services
-  // .filter(
-  //   service => service.name.toLowerCase().match(store.servicesState.serviceFilter.toLowerCase()) &&
-  //               service.category === (store.servicesState.serviceCategoryFilter === '' ? service.category : store.servicesState.serviceCategoryFilter)
-  // )
-  ,
+  servicesResult: store.servicesState.servicesResult,
+  serviceNameFilter: store.servicesState.serviceNameFilter,
   serviceCategoryFilter: store.servicesState.serviceCategoryFilter
 });
 
