@@ -5,7 +5,9 @@ const initialState = {
     [Math.floor(Math.random() * 100)]: { name: 'Rose', registeredAt: Date.now(), services: {} },
     [Math.floor(Math.random() * 100)]: { name: 'John', registeredAt: Date.now(), services: { [Math.floor(Math.random() * 100)]: { name: 'Basic Facial', price: 55, category: 'facial', clientServiceId: Date.now() }, [Math.floor(Math.random() * 100)]: { name: 'Basic Facial', price: 55, category: 'facial', clientServiceId: Date.now() } } },
     [Math.floor(Math.random() * 100)]: { name: 'Valerie', registeredAt: Date.now(), services: {} },
-  }
+  },
+  isPaymentModalOpen: false,
+  clientForPayment: null
 }
 
 // NOTE: createReducer uses Immer to let you write reducers as if they 
@@ -17,6 +19,19 @@ export const clientsReducer = createReducer(initialState, {
     const newClient = { name: action.payload.clientName, services: [], registeredAt: Date.now() }
     
     state.clients[Date.now()] = newClient
+  },
+
+  REMOVE_CLIENT: (state, action) => {
+    delete state.clients[action.payload.clientId]
+  },
+
+  OPEN_PAYMENT_MODAL: (state, action) => {
+    state.isPaymentModalOpen = true
+    state.clientForPayment = action.payload.client
+  },
+
+  CLOSE_PAYMENT_MODAL: (state) => {
+    state.isPaymentModalOpen = false
   },
 
   DROP_SERVICE: (state, action) => {

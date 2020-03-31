@@ -1,13 +1,13 @@
 import React from 'react';
 import Service from './Service'
-import { filterService } from '../actions/actionCreators'
+import { actionFilterService } from '../actions/actionCreators'
 import { connect } from 'react-redux';
 
 class ServicesList extends React.Component {
   onCategoryClick = (category) => {
     const currentServiceNameFilter = this.props.serviceNameFilter
 
-    this.props.filterService(currentServiceNameFilter, category);
+    this.props.actionFilterService(currentServiceNameFilter, category);
   }
 
   handleInputChange = (event) => {
@@ -15,11 +15,10 @@ class ServicesList extends React.Component {
     const target = event.target;
     const value = target.value;
 
-    this.props.filterService(value, currentServiceCategoryFilter);
+    this.props.actionFilterService(value, currentServiceCategoryFilter);
   }
 
   render (){
-
     const servicesResult = this.props.servicesResult
     
     return (
@@ -56,13 +55,13 @@ class ServicesList extends React.Component {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  filterService: (serviceNameFilter, serviceCategoryFilter) => { dispatch(filterService(serviceNameFilter, serviceCategoryFilter)) }
+  actionFilterService: (serviceNameFilter, serviceCategoryFilter) => { dispatch(actionFilterService(serviceNameFilter, serviceCategoryFilter)) }
 });
 
-const mapStateToProps = store => ({
-  servicesResult: store.servicesState.servicesResult,
-  serviceNameFilter: store.servicesState.serviceNameFilter,
-  serviceCategoryFilter: store.servicesState.serviceCategoryFilter
+const mapStateToProps = state => ({
+  servicesResult: state.servicesState.servicesResult,
+  serviceNameFilter: state.servicesState.serviceNameFilter,
+  serviceCategoryFilter: state.servicesState.serviceCategoryFilter
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ServicesList);

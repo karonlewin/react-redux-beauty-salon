@@ -13,7 +13,7 @@ class ClientTotal extends React.Component {
     return (
       <div>
         <b>
-          Total: ${total}
+          ${total}
         </b>
       </div>
     )

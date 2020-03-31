@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import ServicesList from './ServicesList'
 import ClientList from './ClientList'
+import PaymentModal from './PaymentModal'
 import AddClient from './AddClient'
 import { combineReducers } from 'redux'
 import { Provider } from 'react-redux'
@@ -23,7 +24,7 @@ const store = configureStore({ reducer: rootReducer })
 class App extends Component {
   render () {
     return (
-      <div className="container is-fluid">
+      <div className="container is-fluid is-unselectable">
         <section className="hero is-dark is-bold header-hero">
           <div className="hero-body">
             <div className="container is-fluid">
@@ -44,6 +45,7 @@ class App extends Component {
               <AddClient/>
               <ClientList/>
               <ServicesList/>
+              <PaymentModal/>
           </DndProvider>
             </Provider>
         </div>

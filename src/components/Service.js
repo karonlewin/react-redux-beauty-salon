@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { DragSource } from 'react-dnd'
 import CategoryIcon from './CategoryIcon'
-import { dragService, dropService } from '../actions/actionCreators'
+import { actionDragService, actionDropService } from '../actions/actionCreators'
 
 const serviceSpec = {
   beginDrag (props) {
@@ -19,7 +19,7 @@ const serviceSpec = {
     // so we know for which client this service should be added
     const { clientId } = monitor.getDropResult()
 
-    props.dropService(props.service, clientId)
+    props.actionDropService(props.service, clientId)
   }
 }
 
@@ -34,10 +34,11 @@ function collect (connect, monitor) {
 class Service extends React.Component {
   render () {
     const { connectDragSource, service } = this.props
+    
     return connectDragSource(
       <div style={{width: '100%'}}>
         <CategoryIcon category={service.category}/>
-        {service.name} | ${service.price}
+        {service.name} (${service.price})
       </div>
     )
   }
@@ -53,11 +54,11 @@ Service.propTypes = {
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  dragService: (service) => {
-    dispatch(dragService(service))
+  actionDragService: (service) => {
+    dispatch(actionDragService(service))
   },
-  dropService: (service, clientId) => {
-    dispatch(dropService(service, clientId))
+  actionDropService: (service, clientId) => {
+    dispatch(actionDropService(service, clientId))
   }
 })
 
