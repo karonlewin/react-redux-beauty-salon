@@ -35,10 +35,10 @@ class Service extends React.Component {
   render () {
     const { connectDragSource, service } = this.props
     return connectDragSource(
-      <a className="panel-block is-active">
+      <div style={{width: '100%'}}>
         <CategoryIcon category={service.category}/>
         {service.name} | ${service.price}
-      </a>
+      </div>
     )
   }
 }

@@ -20,7 +20,6 @@ export const clientsReducer = createReducer(initialState, {
   },
 
   DROP_SERVICE: (state, action) => {
-    console.warn({action})
     const client = state.clients[action.payload.clientId]
 
     client.services[Math.floor(Math.random() * 100)] = { ...action.payload.service, clientServiceId: Date.now() }

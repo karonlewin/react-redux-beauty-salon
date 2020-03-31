@@ -24,3 +24,7 @@
 .panel-block.is-active {
   border-left-color: #ff3860;
 }
+
+.client-services .panel-block {
+  border: none;
+}

@@ -12,7 +12,7 @@ class Client extends React.Component {
           <strong>{client.name}</strong> <small>@{client.name.trim().toLowerCase()}</small>
           <br/>
           <small>
-            <Moment>{client.registeredAt}</Moment>
+            <Moment format="H:mm:ss">{client.registeredAt}</Moment>
           </small>
         </p>
       </div>
