@@ -1,17 +1,18 @@
-import React from 'react'
-import PropTypes from 'prop-types'
-import ClientServices from './ClientServices'
-import { connect } from 'react-redux'
+import React from 'react';
+import PropTypes from 'prop-types';
+import ClientServices from './ClientServices';
+import { connect } from 'react-redux';
+import _ from 'lodash';
 
 class ClientList extends React.Component {
   render () {
-    const clients = this.props.clients
+    const clients = _.filter(this.props.clients, { billPaid: false })
 
     return (
       <React.Fragment>
         {
-          Object.keys(clients).map(key => (
-            <ClientServices client={clients[key]} clientId={key} key={Math.random()} />
+          clients.map(client => (
+            <ClientServices client={client} clientId={client.id} key={client.id} />
           ))
         }
       </React.Fragment>
@@ -21,7 +22,7 @@ class ClientList extends React.Component {
 }
 
 ClientList.propTypes = {
-  clients: PropTypes.object
+  clients: PropTypes.array
 }
 
 const mapStateToProps = store => ({

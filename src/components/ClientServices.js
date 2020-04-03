@@ -4,7 +4,12 @@ import Service from './Service'
 import ClientTotal from './ClientTotal'
 import { DropTarget } from 'react-dnd'
 import { connect } from 'react-redux'
-import { actionRemoveClientService } from '../actions/actionCreators'
+
+import {
+  actionRemoveClientService,
+  actionRemoveClient,
+  actionOpenPaymentModal,
+} from '../actions/actionCreators'
 
 const clientServicesSpec = {
   drop(props) {
@@ -27,11 +32,22 @@ class ClientServices extends React.Component {
     this.props.actionRemoveClientService(clientId, clientServiceId);
   }
 
+  removeClient = (clientId) => {
+    const confirmed = window.confirm("Are you sure?")
+
+    if (confirmed) {
+      this.props.actionRemoveClient(clientId)
+    }
+  }
+
+  openPaymentModal = () => {
+    this.props.actionOpenPaymentModal(this.props.client)
+  }
+
   render() {
 
     const { connectDropTarget } = this.props
     const clientServices = this.props.client.services
-
 
     return connectDropTarget(
       <div className="box">
@@ -39,14 +55,15 @@ class ClientServices extends React.Component {
           <div className="media-content">
             <div className="content">
               <Client client={this.props.client} />
-              <b>Services:</b>
               <br />
-
+              <span className="has-text-weight-bold">
+                Services:
+              </span>
               <nav>
                 {
                   Object.keys(clientServices).map(key => (
-                    <a className="panel-block is-active">
-                      <Service service={clientServices[key]} removeClientService={() => this.removeClientService(this.props.clientId, key)} />
+                    <a className="panel-block is-active" key={key}>
+                      <Service service={clientServices[key]} />
                       <a class="delete" onClick={() => this.removeClientService(this.props.clientId, key)}></a>
                     </a>
                   ))
@@ -56,12 +73,12 @@ class ClientServices extends React.Component {
             </div>
             <nav className="level is-mobile">
               <div className="level-left">
-                <a className="level-item" aria-label="reply">
+                <a className="level-item" aria-label="reply" onClick={() => this.removeClient(this.props.clientId)}>
                   <span className="icon is-small has-text-danger">
                     <i className="fas fa-ban" aria-hidden="true"></i>
                   </span>
                 </a>
-                <a className="level-item" aria-label="like">
+                <a className="level-item" aria-label="like" onClick={() => this.openPaymentModal()}>
                   <span className="icon is-small has-text-danger">
                     <i className="fas fa-dollar-sign" aria-hidden="true"></i>
                   </span>
@@ -71,22 +88,20 @@ class ClientServices extends React.Component {
                 <ClientTotal services={this.props.client.services} />
               </div>
             </nav>
-
           </div>
         </article>
       </div>
-
     )
   }
 }
 
 const mapDispatchToProps = (dispatch) => ({
-  actionRemoveClientService: (clientId, clientServiceId) => { dispatch(actionRemoveClientService(clientId, clientServiceId)) }
+  actionRemoveClientService: (clientId, clientServiceId) => { dispatch(actionRemoveClientService(clientId, clientServiceId)) },
+  actionRemoveClient: (clientId) => { dispatch(actionRemoveClient(clientId)) },
+  actionOpenPaymentModal: (client) => { dispatch(actionOpenPaymentModal(client)) },
 })
 
 const mapStateToProps = (state) => ({
-  clients: state.clients,
-  draggedService: state.draggedService
 })
 
 const reduxConnectedClientServices = connect(mapStateToProps, mapDispatchToProps)(ClientServices)

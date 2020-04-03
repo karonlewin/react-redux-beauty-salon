@@ -1,5 +1,5 @@
 import { createReducer } from '@reduxjs/toolkit';
-var _ = require('lodash');
+import _ from 'lodash';
 
 const servicesSample = {
   [Math.floor(Math.random() * 100)]: { name: 'Deluxe Facial', price: 75, category: 'facial' },
