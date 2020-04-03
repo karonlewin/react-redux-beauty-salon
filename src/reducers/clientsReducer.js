@@ -17,7 +17,7 @@ const initialState = {
 
 export const clientsReducer = createReducer(initialState, {
   ADD_CLIENT: (state, action) => {
-    const newClient = { id: Date.now(), name: action.payload.clientName, services: [], registeredAt: Date.now() }
+    const newClient = { id: Date.now(), name: action.payload.clientName, services: [], registeredAt: Date.now(), billPaid: false }
 
     state.clients.push(newClient)
   },

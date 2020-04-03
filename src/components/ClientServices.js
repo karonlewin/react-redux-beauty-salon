@@ -64,7 +64,7 @@ class ClientServices extends React.Component {
                   Object.keys(clientServices).map(key => (
                     <a className="panel-block is-active" key={key}>
                       <Service service={clientServices[key]} />
-                      <a class="delete" onClick={() => this.removeClientService(this.props.clientId, key)}></a>
+                      <p className="delete" onClick={() => this.removeClientService(this.props.clientId, key)}></p>
                     </a>
                   ))
                 }
