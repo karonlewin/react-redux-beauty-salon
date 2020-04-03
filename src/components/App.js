@@ -26,36 +26,32 @@ class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <div className="container is-fluid is-unselectable">
-          <section className="hero is-dark is-bold header-hero">
-            <div className="hero-body">
-              <div className="container is-fluid">
-                <div className="columns">
-                  <div className="column is-four-fifths">
-                    <h1 className="title">
-                      Beauty Sallon
-                    </h1>
-                    <h2 className="subtitle has-text-danger">
-                      <small>
-                        Made with ReactJS
-                      </small>
-                    </h2>
-                  </div>
-                  <div className="column is-one-fifth">
-                    <CompanyTotal/>
-                  </div>
-                </div>
+        <div className="hero is-dark is-bold header-hero">
+          <div className="hero-body">
+            <div className="columns">
+              <div className="column is-four-fifths">
+                <h1 className="title">
+                  Beauty Sallon
+                </h1>
+                <h2 className="subtitle has-text-danger">
+                  <small>
+                    Made with ReactJS
+                  </small>
+                </h2>
+              </div>
+              <div className="column is-one-fifth">
+                <CompanyTotal />
               </div>
             </div>
-          </section>
-          <div className="app-container">
-            <DndProvider backend={HTML5Backend}>
-              <AddClient />
-              <ClientList />
-              <ServicesList />
-              <PaymentModal />
-            </DndProvider>
           </div>
+        </div>
+        <div className="app-container">
+          <DndProvider backend={HTML5Backend}>
+            <AddClient />
+            <ClientList />
+            <ServicesList />
+            <PaymentModal />
+          </DndProvider>
         </div>
       </Provider>
     )

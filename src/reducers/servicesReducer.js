@@ -24,7 +24,7 @@ const servicesSample = {
 
   [Math.floor(Math.random() * 100)]: { name: 'Carolina Herrera Parfum', price: 100, category: 'others' },
   [Math.floor(Math.random() * 100)]: { name: 'Chocolate', price: 3, category: 'others' },
-  [Math.floor(Math.random() * 100)]: { name: 'Coke', price: 5, category: 'others ' }
+  [Math.floor(Math.random() * 100)]: { name: 'Coke', price: 5, category: 'others' }
 }
 
 const initialState = {
@@ -43,15 +43,10 @@ export const servicesReducer = createReducer(initialState, {
     const nextServiceNameFilter = action.payload.serviceNameFilter || ''
     const nextServiceCategoryFilter = action.payload.serviceCategoryFilter || ''
 
-    console.warn({ nextServiceNameFilter, nextServiceCategoryFilter})
-
     state.serviceNameFilter = nextServiceNameFilter
     state.serviceCategoryFilter = nextServiceCategoryFilter
 
     const filteredServices = _.filter(state.services, function (service) { 
-      console.warn(!_.isEmpty(nextServiceCategoryFilter))
-      console.warn((!_.isEmpty(nextServiceCategoryFilter) && service.category === nextServiceCategoryFilter))
-
       return service.name.toLowerCase().match(nextServiceNameFilter.toLowerCase()) && 
         service.category === (_.isEmpty(nextServiceCategoryFilter) ? service.category : nextServiceCategoryFilter)
     });

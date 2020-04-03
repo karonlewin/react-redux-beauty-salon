@@ -28,3 +28,23 @@
 .client-services .panel-block {
   border: none;
 }
+
+.panel-tabs div {
+  border-bottom: 1px solid #dbdbdb;
+  margin-bottom: -1px;
+  padding: .5em;
+  cursor: pointer;
+}
+
+.panel-tabs .is-active {
+  text-decoration: underline;
+}
+
+.panel-tabs :hover {
+  color: #ff0537!important;
+}
+
+div.panel-block:hover {
+  background-color: #f5f5f5;
+  cursor: pointer;
+}

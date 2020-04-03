@@ -6,20 +6,20 @@ import _ from 'lodash';
 class CompanyTotal extends React.Component {
   render () {
     const clientsBillPaid = _.filter(this.props.clients, { billPaid: true })
-    const allClients = this.props.clients
+    const clientsBillNotPaid = _.filter(this.props.clients, { billPaid: false })
 
-    let totalPaid = 0;
+    let totalReceived = 0;
     
     clientsBillPaid.forEach(function (client) {
-      totalPaid += _.reduce(client.services, function (sum, service) {
+      totalReceived += _.reduce(client.services, function (sum, service) {
         return sum + (service ? service.price : 0);
       }, 0);
     })
 
-    let total = 0
+    let totalOpen = 0
 
-    allClients.forEach(function (client) {
-      total += _.reduce(client.services, function (sum, service) {
+    clientsBillNotPaid.forEach(function (client) {
+      totalOpen += _.reduce(client.services, function (sum, service) {
         return sum + (service ? service.price : 0);
       }, 0);
     })
@@ -29,14 +29,14 @@ class CompanyTotal extends React.Component {
         <nav className="level">
           <div className="level-item has-text-centered">
             <div>
-              <p className="heading">Total</p>
-                <p className="title has-text-danger">${total}</p>
+              <p className="heading">Total Open</p>
+              <p className="title has-text-danger">${totalOpen}</p>
             </div>
           </div>
           <div className="level-item has-text-centered">
             <div>
-              <p className="heading">Total Paid</p>
-                <p className="title has-text-primary">${totalPaid}</p>
+              <p className="heading">Total Received</p>
+                <p className="title has-text-primary">${totalReceived}</p>
             </div>
           </div>
         </nav>

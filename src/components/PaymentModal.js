@@ -34,18 +34,18 @@ class PaymentModal extends React.Component {
             <section className="modal-card-body">
               <div className="tile is-ancestor">
                 <div className="tile is-vertical is-8">
-                  <div class="tile">
-                    <div class="tile is-parent is-vertical">
-                      <article class="tile is-child notification is-black">
+                  <div className="tile">
+                    <div className="tile is-parent is-vertical">
+                      <article className="tile is-child notification is-dark">
                         <p className="title is-size-4">{clientForPayment.name}</p>
                         <p className="subtitle is-size-6">@{clientForPayment.name.trim().toLowerCase()}</p>
                       </article>
-                      <article class="tile is-child notification ">
+                      <article className="tile is-child notification ">
                         <p className="title is-size-6">Services:</p>
                         <ul>
                           {
                             Object.keys(clientServices).map(key => (
-                              <li>• {clientServices[key].name} (${clientServices[key].price})</li>
+                              <li key={key}>• {clientServices[key].name} (${clientServices[key].price})</li>
                             ))
                           }
                         </ul>
@@ -55,9 +55,9 @@ class PaymentModal extends React.Component {
                 </div>
                 <div className="tile is-parent">
                   <article className="tile is-child notification is-danger">
-                    <p className="title is-size-2">
+                    <div className="title is-size-2">
                       <ClientTotal services={clientForPayment.services} />
-                    </p>
+                    </div>
                     <p className="subtitle is-size-4">
                       Total
                     </p>

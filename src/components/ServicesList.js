@@ -34,19 +34,19 @@ class ServicesList extends React.Component {
             </span>
           </p>
         </div>
-        <p className="panel-tabs">
-          <a href="#" className={this.props.serviceCategoryFilter === '' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('')}>all</a>
-          <a href="#" className={this.props.serviceCategoryFilter === 'facial' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('facial')}>facial</a>
-          <a href="#" className={this.props.serviceCategoryFilter === 'hair' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('hair')}>hair</a>
-          <a href="#" className={this.props.serviceCategoryFilter === 'nails' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('nails')}>nails</a>
-          <a href="#" className={this.props.serviceCategoryFilter === 'products' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('products')}>products</a>
-          <a href="#" className={this.props.serviceCategoryFilter === 'others' ? 'is-active ' : '' + "has-text-danger"} onClick={() => this.onCategoryClick('others')}>others</a>
-        </p>
+        <div className="panel-tabs">
+          <div className={`${this.props.serviceCategoryFilter === '' ? 'is-active' : 'has-text-danger'}`} onClick={() => this.onCategoryClick('')}>all</div>
+          <div className={`${this.props.serviceCategoryFilter === 'facial' ? 'is-active' : 'has-text-danger'}`} onClick={() => this.onCategoryClick('facial')}>facial</div>
+          <div className={`${this.props.serviceCategoryFilter === 'hair' ? 'is-active' : 'has-text-danger'}`} onClick={() => this.onCategoryClick('hair')}>hair</div>
+          <div className={`${this.props.serviceCategoryFilter === 'nails' ? 'is-active' : 'has-text-danger'}`} onClick={() => this.onCategoryClick('nails')}>nails</div>
+          <div className={`${this.props.serviceCategoryFilter === 'products' ? 'is-active' : 'has-text-danger'}`} onClick={() => this.onCategoryClick('products')}>products</div>
+          <div className={`${this.props.serviceCategoryFilter === 'others' ? 'is-active' : 'has-text-danger'}`} onClick={() => this.onCategoryClick('others')}>others</div>
+        </div>
         {
           Object.keys(servicesResult).map(key => (
-            <a className="panel-block is-active" key={key}>
+            <div href="#" className="panel-block is-active" key={key}>
               <Service service={servicesResult[key]} key={servicesResult[key].name} />
-            </a>
+            </div>
           ))
         }
       </nav>

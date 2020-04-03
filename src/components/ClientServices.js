@@ -62,10 +62,10 @@ class ClientServices extends React.Component {
               <nav>
                 {
                   Object.keys(clientServices).map(key => (
-                    <a className="panel-block is-active" key={key}>
+                    <div className="panel-block is-active" key={key}>
                       <Service service={clientServices[key]} />
-                      <a class="delete" onClick={() => this.removeClientService(this.props.clientId, key)}></a>
-                    </a>
+                      <p className="delete" onClick={() => this.removeClientService(this.props.clientId, key)}></p>
+                    </div>
                   ))
                 }
               </nav>
@@ -73,16 +73,21 @@ class ClientServices extends React.Component {
             </div>
             <nav className="level is-mobile">
               <div className="level-left">
-                <a className="level-item" aria-label="reply" onClick={() => this.removeClient(this.props.clientId)}>
-                  <span className="icon is-small has-text-danger">
-                    <i className="fas fa-ban" aria-hidden="true"></i>
-                  </span>
-                </a>
-                <a className="level-item" aria-label="like" onClick={() => this.openPaymentModal()}>
-                  <span className="icon is-small has-text-danger">
-                    <i className="fas fa-dollar-sign" aria-hidden="true"></i>
-                  </span>
-                </a>
+                <p className="buttons">
+                  <button className="button is-danger is-small" onClick={() => this.removeClient(this.props.clientId)}>
+                    <span className="icon is-small">
+                      <i className="fas fa-ban"></i>
+                    </span>
+                    <span>Remove</span>
+                  </button>
+
+                  <button className="button is-primary is-small" onClick={() => this.openPaymentModal()}>
+                    <span className="icon is-small">
+                      <i className="fas fa-dollar-sign"></i>
+                    </span>
+                    <span>Cashier</span>
+                  </button>
+                </p>
               </div>
               <div className="level-right">
                 <ClientTotal services={this.props.client.services} />

@@ -27,7 +27,7 @@ export const clientsReducer = createReducer(initialState, {
   },
 
   MARK_CLIENT_SERVICES_STATUS_AS_PAID: (state, action) => {
-    const clientIndex = state.clients.findIndex(client => client.id == action.payload.clientId);
+    const clientIndex = state.clients.findIndex(client => client.id === action.payload.clientId);
     const client = state.clients[clientIndex]
 
     client.billPaid = true  
@@ -44,14 +44,14 @@ export const clientsReducer = createReducer(initialState, {
   },
 
   DROP_SERVICE: (state, action) => {
-    const clientIndex = state.clients.findIndex(client => client.id == action.payload.clientId);
+    const clientIndex = state.clients.findIndex(client => client.id === action.payload.clientId);
     const client = state.clients[clientIndex]
 
     client.services[Math.floor(Math.random() * 100)] = { ...action.payload.service, clientServiceId: Date.now() }
   },
 
   REMOVE_CLIENT_SERVICE: (state, action) => {
-    const clientIndex = state.clients.findIndex(client => client.id == action.payload.clientId);
+    const clientIndex = state.clients.findIndex(client => client.id === action.payload.clientId);
     const client = state.clients[clientIndex]
     
     delete client.services[action.payload.clientServiceId]
