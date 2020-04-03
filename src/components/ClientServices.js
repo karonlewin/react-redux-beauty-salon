@@ -48,7 +48,6 @@ class ClientServices extends React.Component {
 
     const { connectDropTarget } = this.props
     const clientServices = this.props.client.services
-    const isPaymentModalOpen = this.props.isPaymentModalOpen
 
     return connectDropTarget(
       <div className="box">
@@ -63,7 +62,7 @@ class ClientServices extends React.Component {
               <nav>
                 {
                   Object.keys(clientServices).map(key => (
-                    <a className="panel-block is-active">
+                    <a className="panel-block is-active" key={key}>
                       <Service service={clientServices[key]} />
                       <a class="delete" onClick={() => this.removeClientService(this.props.clientId, key)}></a>
                     </a>

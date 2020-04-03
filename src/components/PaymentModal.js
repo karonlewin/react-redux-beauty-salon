@@ -2,7 +2,7 @@ import React from 'react'
 import ClientTotal from './ClientTotal'
 import { connect } from 'react-redux'
 
-import { actionClosePaymentModal } from '../actions/actionCreators'
+import { actionClosePaymentModal, actionMarkClientServicesStatusAsPaid } from '../actions/actionCreators'
 
 class PaymentModal extends React.Component {
 
@@ -10,8 +10,13 @@ class PaymentModal extends React.Component {
     this.props.actionClosePaymentModal()
   }
 
+  markClientServicesStatusAsPaid = (clientId) => {
+    this.props.actionMarkClientServicesStatusAsPaid(clientId)
+  }
+
   render() {
     const clientForPayment = this.props.clientForPayment
+    const clientId = clientForPayment && clientForPayment.id
     const clientServices = clientForPayment ? clientForPayment.services : []
     const isPaymentModalOpen = this.props.isPaymentModalOpen
 
@@ -61,7 +66,7 @@ class PaymentModal extends React.Component {
               </div>
             </section>
             <footer className="modal-card-foot">
-              <button className="button is-danger">Mark as paid</button>
+              <button className="button is-danger" onClick={() => this.markClientServicesStatusAsPaid(clientId)}>Mark as paid</button>
               <button className="button" onClick={() => this.closePaymentModal()}>Cancel</button>
             </footer>
           </div>
@@ -73,6 +78,7 @@ class PaymentModal extends React.Component {
 
 const mapDispatchToProps = (dispatch) => ({
   actionClosePaymentModal: () => { dispatch(actionClosePaymentModal()) },
+  actionMarkClientServicesStatusAsPaid: (clientId) => { dispatch(actionMarkClientServicesStatusAsPaid(clientId))}
 });
 
 const mapStateToProps = state => ({

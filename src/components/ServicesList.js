@@ -44,7 +44,7 @@ class ServicesList extends React.Component {
         </p>
         {
           Object.keys(servicesResult).map(key => (
-            <a className="panel-block is-active">
+            <a className="panel-block is-active" key={key}>
               <Service service={servicesResult[key]} key={servicesResult[key].name} />
             </a>
           ))
