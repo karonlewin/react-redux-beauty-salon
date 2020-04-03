@@ -36,7 +36,7 @@ class PaymentModal extends React.Component {
                 <div className="tile is-vertical is-8">
                   <div class="tile">
                     <div class="tile is-parent is-vertical">
-                      <article class="tile is-child notification is-primary">
+                      <article class="tile is-child notification is-black">
                         <p className="title is-size-4">{clientForPayment.name}</p>
                         <p className="subtitle is-size-6">@{clientForPayment.name.trim().toLowerCase()}</p>
                       </article>
@@ -55,7 +55,7 @@ class PaymentModal extends React.Component {
                 </div>
                 <div className="tile is-parent">
                   <article className="tile is-child notification is-danger">
-                    <p className="title is-size-1">
+                    <p className="title is-size-2">
                       <ClientTotal services={clientForPayment.services} />
                     </p>
                     <p className="subtitle is-size-4">
@@ -66,7 +66,7 @@ class PaymentModal extends React.Component {
               </div>
             </section>
             <footer className="modal-card-foot">
-              <button className="button is-danger" onClick={() => this.markClientServicesStatusAsPaid(clientId)}>Mark as paid</button>
+              <button className="button is-primary" onClick={() => this.markClientServicesStatusAsPaid(clientId)}>Mark as paid</button>
               <button className="button" onClick={() => this.closePaymentModal()}>Cancel</button>
             </footer>
           </div>
