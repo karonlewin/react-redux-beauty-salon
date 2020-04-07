@@ -31,11 +31,11 @@ class App extends Component {
             <div className="columns">
               <div className="column is-four-fifths">
                 <h1 className="title">
-                  Beauty Sallon
+                  Beauty Salon
                 </h1>
                 <h2 className="subtitle has-text-danger">
                   <small>
-                    Made with ReactJS
+                    Made with React & Redux
                   </small>
                 </h2>
               </div>

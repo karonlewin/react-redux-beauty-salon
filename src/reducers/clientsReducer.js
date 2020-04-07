@@ -3,9 +3,9 @@ import _ from 'lodash';
 
 const initialState = {
   clients: [
-    { id: Math.floor(Math.random() * 100), name: 'Rose', registeredAt: Date.now(), billPaid: false, services: {} },
-    { id: Math.floor(Math.random() * 100), name: 'John', registeredAt: Date.now(), billPaid: false, services: { [Math.floor(Math.random() * 100)]: { name: 'Basic Facial', price: 55, category: 'facial', clientServiceId: Date.now() }, [Math.floor(Math.random() * 100)]: { name: 'Basic Facial', price: 55, category: 'facial', clientServiceId: Date.now() } } },
-    { id: Math.floor(Math.random() * 100), name: 'Valerie', registeredAt: Date.now(), billPaid: false, services: {} },
+    { id: Math.floor(Math.random() * 100), name: 'Rose', registeredAt: Date.now(), billPaid: false, services: { [Math.floor(Math.random() * 100)]: { name: 'Women Hair Cut', price: 35, category: 'hair', clientServiceId: Date.now() } } },
+    { id: Math.floor(Math.random() * 100), name: 'John', registeredAt: Date.now(), billPaid: false, services: { [Math.floor(Math.random() * 100)]: { name: 'Men Hair Cut', price: 26, category: 'hair', clientServiceId: Date.now() }, [Math.floor(Math.random() * 100)]: { name: 'Basic Facial', price: 55, category: 'facial', clientServiceId: Date.now() } } },
+    { id: Math.floor(Math.random() * 100), name: 'Valerie', registeredAt: Date.now(), billPaid: false, services: { [Math.floor(Math.random() * 100)]: { name: 'Gel Nails', price: 35, category: 'nails', clientServiceId: Date.now() } } },
   ],
   isPaymentModalOpen: false,
   clientForPayment: null
