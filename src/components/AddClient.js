@@ -18,15 +18,15 @@ class AddClient extends React.Component {
                 <div className="field">
                   <div className="control">
                     <input className="input is-danger" type="text" name="client-name"
-                           placeholder="Enter client's name"
+                           placeholder="Enter customer's name"
                            ref={node => {this.input = node;}}/>
                   </div>
                 </div>
                 <button className="button is-danger" onClick={this.addClient}>
                   <span className="icon is-small">
-                    <i className="fas fa-heart"></i>
+                    <i className="fas fa-plus"></i>
                   </span>
-                  <span>Hello beauty!</span>
+                  <span>New Customer</span>
                 </button>
               </article>
             </div>

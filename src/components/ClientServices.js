@@ -59,7 +59,7 @@ class ClientServices extends React.Component {
               <span className="has-text-weight-bold">
                 Services:
               </span>
-              <nav>
+              <nav style={{marginTop: '3px'}}>
                 {
                   Object.keys(clientServices).map(key => (
                     <div className="panel-block is-active" key={key}>

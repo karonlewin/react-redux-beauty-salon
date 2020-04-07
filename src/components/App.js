@@ -35,7 +35,7 @@ class App extends Component {
                 </h1>
                 <h2 className="subtitle has-text-danger">
                   <small>
-                    Made with ReactJS
+                    Made with React & Redux
                   </small>
                 </h2>
               </div>
